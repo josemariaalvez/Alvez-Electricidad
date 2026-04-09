@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Alvez Electricidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1B2BAD;--blue2:#142288;--red:#CC0A0A;--red2:#A80808;
+  --white:#fff;--off:#F5F6FA;--gray:#ECEDF4;--mid:#777;--dark:#111;
+  --border:#E0E1ED;--radius:12px;--shadow:0 2px 16px rgba(27,43,173,.10);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--off);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── TOP BAR (mobile) ── */
+.topbar{
+  display:none;
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:56px;background:var(--blue);
+  align-items:center;justify-content:space-between;
+  padding:0 16px;
+  border-bottom:3px solid var(--red);
+}
+.topbar-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}
+.topbar-logo .tri{width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:18px solid var(--red);flex-shrink:0}
+.topbar-ico{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px}
+
+/* ── DESKTOP SIDEBAR ── */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:260px;z-index:300;
+  background:var(--blue);display:flex;flex-direction:column;
+  overflow-y:auto;transition:transform .3s ease;
+}
+.sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.sidebar-logo .brand{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:10px;text-decoration:none}
+.sidebar-logo .tri{width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:24px solid var(--red);flex-shrink:0}
+.sidebar-logo .brand span{color:rgba(255,255,255,.6);font-weight:500}
+.sidebar-nav{padding:12px 0;flex:1}
+.sidebar-section{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:12px 20px 4px}
+.sidebar-link{display:flex;align-items:center;gap:12px;padding:11px 20px;color:rgba(255,255,255,.75);font-size:.9rem;font-weight:500;text-decoration:none;transition:background .15s,color .15s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+.sidebar-link .ico{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .15s}
+.sidebar-link:hover,.sidebar-link.active{background:rgba(255,255,255,.1);color:#fff}
+.sidebar-link:hover .ico,.sidebar-link.active .ico{background:var(--red)}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.12)}
+.sidebar-contact-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:.78rem;margin-bottom:6px}
+
+/* ── MAIN ── */
+.main{margin-left:260px;min-height:100vh;padding-bottom:80px}
+
+/* ── BOTTOM NAV (mobile) ── */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:#fff;border-top:1px solid var(--border);
+  height:64px;align-items:stretch;
+}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;color:var(--mid);font-size:.62rem;font-weight:600;font-family:'Barlow',sans-serif;letter-spacing:.04em;transition:color .15s;text-decoration:none}
+.bn-item .bni{font-size:1.3rem}
+.bn-item.active,.bn-item:hover{color:var(--blue)}
+
+/* ── HERO BANNER ── */
+.hero-banner{
+  background:linear-gradient(135deg,var(--blue) 0%,#0e1d7a 60%,var(--red) 100%);
+  padding:48px 40px 56px;position:relative;overflow:hidden;
+}
+.hero-banner::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 0,transparent 48px),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 0,transparent 48px);
+}
+.hero-banner::after{
+  content:'⚡';position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-size:220px;opacity:.06;line-height:1;pointer-events:none;
+}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .8rem;border-radius:20px;margin-bottom:16px}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;line-height:1;margin-bottom:12px}
+.hero-title em{font-style:normal;background:var(--red);padding:0 .1em;border-radius:3px}
+.hero-sub{color:rgba(255,255,255,.65);font-size:.95rem;line-height:1.6;margin-bottom:28px;max-width:480px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero-main{background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 1.8rem;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s}
+.btn-hero-main:hover{background:var(--red2);transform:translateY(-2px)}
+.btn-hero-sec{background:rgba(255,255,255,.12);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 1.8rem;border-radius:8px;border:1px solid rgba(255,255,255,.25);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s}
+.btn-hero-sec:hover{background:rgba(255,255,255,.2)}
+.hero-stats{display:flex;gap:40px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.hero-stat .n{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#fff;line-height:1}
+.hero-stat .l{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:2px}
+
+/* ── PAGE SECTIONS ── */
+.page{display:none;animation:fadeIn .3s ease both}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION HEADER ── */
+.sec{padding:32px 32px 0}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;color:var(--blue);letter-spacing:.02em;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.sec-title::before{content:'';width:4px;height:22px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec-sub{font-size:.85rem;color:var(--mid);margin-bottom:20px;padding-left:12px}
+
+/* ── INFO CARDS (métodos pago/envío) ── */
+.info-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:0 32px}
+.info-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s;cursor:pointer}
+.info-card:hover{box-shadow:0 4px 24px rgba(27,43,173,.15);border-color:var(--blue)}
+.info-card-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.info-card-ico.blue{background:rgba(27,43,173,.1)}
+.info-card-ico.red{background:rgba(204,10,10,.1)}
+.info-card-ico.green{background:rgba(37,211,102,.12)}
+.info-card-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--dark)}
+.info-card-sub{font-size:.78rem;color:var(--mid);margin-top:1px}
+.info-card-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-size:.72rem;background:var(--gray);border-radius:4px;padding:.2rem .5rem;color:var(--dark);font-weight:500}
+
+/* ── CATEGORIES GRID ── */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;padding:0 32px}
+.cat-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:all .2s;text-align:center}
+.cat-card:hover{border-color:var(--blue);background:#f0f2ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(27,43,173,.12)}
+.cat-card.active-cat{border-color:var(--blue);background:var(--blue)}
+.cat-card.active-cat .cat-card-name{color:#fff}
+.cat-card.active-cat .cat-ico{background:rgba(255,255,255,.2)}
+.cat-ico{width:48px;height:48px;border-radius:10px;background:var(--gray);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.cat-card-name{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--dark);line-height:1.2}
+
+/* ── PRODUCTS GRID ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding:0 32px}
+.prod-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s,border-color .2s;cursor:pointer}
+.prod-card:hover{box-shadow:0 6px 28px rgba(27,43,173,.14);border-color:var(--blue)}
+.prod-card-img{height:120px;background:linear-gradient(135deg,var(--blue) 0%,#0e1d7a 100%);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.prod-card-badge{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;padding:.2rem .5rem;border-radius:4px}
+.prod-card-body{padding:12px}
+.prod-cat-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.prod-card-name{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:6px;line-height:1.2}
+.prod-card-vars{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px}
+.prod-var{font-size:.7rem;background:var(--gray);border-radius:3px;padding:.18rem .45rem;color:var(--dark);font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.prod-card-desc{font-size:.78rem;color:var(--mid);line-height:1.5}
+.btn-add-to-budget{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:10px;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.55rem 1rem;border-radius:6px;border:none;cursor:pointer;transition:background .2s}
+.btn-add-to-budget:hover{background:var(--blue2)}
+
+/* ── DESTACADOS HORIZONTAL SCROLL ── */
+.horiz-scroll{display:flex;gap:14px;padding:0 32px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.horiz-scroll::-webkit-scrollbar{display:none}
+.horiz-scroll .prod-card{min-width:180px;flex-shrink:0}
+
+/* ── PROMO CARD ── */
+.promo-card{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--red) 100%);
+  border-radius:var(--radius);padding:32px;position:relative;overflow:hidden;
+  margin:0 32px;
+}
+.promo-card::after{content:'⚡';position:absolute;right:-10px;bottom:-20px;font-size:130px;opacity:.08;line-height:1;pointer-events:none}
+.promo-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px}
+.promo-card p{color:rgba(255,255,255,.7);font-size:.88rem;line-height:1.6;margin-bottom:20px;max-width:340px}
+.promo-checks{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.promo-check{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);font-size:.82rem;font-weight:600}
+.promo-check::before{content:'✓';width:18px;height:18px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.promo-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── CALCULADORA ── */
+.calc-box{background:#fff;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin:0 32px}
+.calc-header{background:var(--blue);padding:20px 24px;display:flex;align-items:center;gap:12px}
+.calc-header-ico{width:40px;height:40px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.calc-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:#fff}
+.calc-header p{color:rgba(255,255,255,.6);font-size:.78rem}
+.calc-body{padding:24px}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
+.calc-field label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:6px}
+.calc-field select,.calc-field input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;background:#fff}
+.calc-field select:focus,.calc-field input:focus{border-color:var(--blue)}
+.btn-calc{background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s}
+.btn-calc:hover{background:var(--blue2)}
+.calc-result{background:var(--off);border-radius:8px;padding:20px;margin-top:20px;display:none}
+.calc-result.show{display:block}
+.calc-result h4{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--blue);margin-bottom:12px}
+.calc-result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.calc-res-item{background:#fff;border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center}
+.calc-res-item .val{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--blue)}
+.calc-res-item .unit{font-size:.72rem;font-weight:600;color:var(--mid);letter-spacing:.1em;text-transform:uppercase}
+
+/* ── BUDGET PAGE ── */
+.budget-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;padding:0 32px}
+.budget-form{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:24px;box-shadow:var(--shadow)}
+.budget-preview{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:24px;position:sticky;top:80px;box-shadow:var(--shadow)}
+.form-section{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border-bottom:2px solid var(--gray);padding-bottom:6px;margin-bottom:16px;margin-top:24px}
+.form-section:first-child{margin-top:0}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-g{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field-g label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.field-g input,.field-g select{padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-size:.9rem;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s}
+.field-g input:focus,.field-g select:focus{border-color:var(--blue)}
+/* product picker */
+.picker-bar{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:end;background:var(--off);border-radius:10px;padding:14px;margin-bottom:8px}
+.picker-bar .field-g{margin-bottom:0}
+.btn-add{background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.68rem 1rem;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;height:fit-content;align-self:end;transition:background .2s}
+.btn-add:hover{background:var(--red2)}
+.item-list{display:flex;flex-direction:column;gap:6px;min-height:50px}
+.item-row{display:flex;align-items:center;gap:8px;background:var(--off);border-radius:8px;padding:9px 12px}
+.item-row-num{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;color:var(--mid);width:18px;flex-shrink:0}
+.item-row-name{flex:1;font-size:.85rem;font-weight:500;color:var(--dark)}
+.item-row-qty{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;color:var(--blue);background:rgba(27,43,173,.08);border-radius:4px;padding:.15rem .5rem;white-space:nowrap}
+.btn-del-item{background:none;border:none;cursor:pointer;color:#ccc;font-size:.9rem;transition:color .15s;padding:0 2px;flex-shrink:0}
+.btn-del-item:hover{color:var(--red)}
+.pago-row{display:flex;flex-wrap:wrap;gap:8px}
+.pago-radio{display:none}
+.pago-radio+label{padding:.5rem 1.1rem;border:1.5px solid var(--border);border-radius:20px;font-size:.82rem;cursor:pointer;transition:all .2s;color:var(--mid);font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.pago-radio:checked+label{border-color:var(--blue);background:var(--blue);color:#fff}
+.pago-recargo-tag{display:inline-block;font-size:.65rem;font-weight:700;background:rgba(204,10,10,.12);color:var(--red);border-radius:4px;padding:.1rem .35rem;margin-left:5px;letter-spacing:.04em;vertical-align:middle}
+.btn-generate{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:1rem;border-radius:10px;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
+.btn-generate:hover{background:var(--blue2);transform:translateY(-2px)}
+/* pdf preview */
+.pdf-preview{border:1.5px solid var(--border);border-radius:10px;padding:18px;background:var(--off)}
+.pdf-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--blue);padding-bottom:10px;margin-bottom:12px}
+.pdf-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--blue)}
+.pdf-logo span{color:var(--red)}
+.pdf-num{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:var(--blue);text-align:right}
+.pdf-num-label{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid)}
+.pdf-date{font-size:.72rem;color:var(--mid)}
+.pdf-sec{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:4px;margin-top:10px}
+.pdf-client{background:#fff;border-radius:6px;padding:8px 10px}
+.pdf-client-row{font-size:.8rem;line-height:1.8}
+.pdf-client-row span{color:var(--mid)}
+.pdf-table{width:100%;border-collapse:collapse;margin-top:4px}
+.pdf-table th{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);padding:.3rem .4rem;border-bottom:2px solid var(--border);text-align:left}
+.pdf-table td{font-size:.78rem;padding:.35rem .4rem;border-bottom:1px solid var(--border)}
+.pdf-pago-tag{background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;padding:.3rem .7rem;border-radius:4px;display:inline-block;margin-top:4px}
+.pdf-foot{font-size:.65rem;color:var(--mid);text-align:center;border-top:1px solid var(--border);padding-top:8px;margin-top:12px}
+
+/* ── CARRITO ── */
+.cart-btn-float{
+  position:fixed;bottom:24px;right:24px;z-index:400;
+  background:var(--blue);color:#fff;border:none;cursor:pointer;
+  width:58px;height:58px;border-radius:50%;font-size:1.4rem;
+  box-shadow:0 4px 20px rgba(27,43,173,.4);transition:transform .2s,background .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+@media(max-width:900px){.cart-btn-float{bottom:76px;right:12px;width:52px;height:52px;font-size:1.2rem}}
+.cart-btn-float:hover{transform:scale(1.08);background:var(--blue2)}
+.cart-badge{
+  position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:800;
+  min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  padding:0 4px;line-height:1;display:none;
+}
+.cart-badge.show{display:flex}
+/* cart drawer */
+.cart-drawer{
+  position:fixed;top:0;right:-380px;bottom:0;width:380px;z-index:500;
+  background:#fff;box-shadow:-4px 0 32px rgba(0,0,0,.15);
+  transition:right .3s ease;display:flex;flex-direction:column;
+}
+.cart-drawer.open{right:0}
+.cart-drawer-head{
+  background:var(--blue);padding:16px 20px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:3px solid var(--red);
+}
+.cart-drawer-head h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:#fff}
+.cart-drawer-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .2s}
+.cart-drawer-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.cart-drawer-body{flex:1;overflow-y:auto;padding:16px}
+.cart-empty{text-align:center;padding:40px 20px;color:var(--mid);font-size:.88rem}
+.cart-empty .ico{font-size:2.5rem;margin-bottom:10px;display:block;opacity:.4}
+.cart-item{background:var(--off);border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid var(--border)}
+.cart-item-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:var(--dark);margin-bottom:3px}
+.cart-item-variant{font-size:.72rem;color:var(--mid);margin-bottom:6px}
+.cart-item-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cart-item-qty{display:flex;align-items:center;gap:6px}
+.cart-qty-btn{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .2s}
+.cart-qty-btn:hover{border-color:var(--blue);color:var(--blue)}
+.cart-qty-num{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--dark);min-width:24px;text-align:center}
+.cart-item-price{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--blue)}
+.cart-item-del{background:none;border:none;cursor:pointer;color:#ccc;font-size:.85rem;transition:color .15s;padding:2px 4px}
+.cart-item-del:hover{color:var(--red)}
+.cart-item-unit{font-size:.7rem;color:var(--mid);margin-top:3px}
+.cart-drawer-foot{padding:16px;border-top:1px solid var(--border);background:#fff}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cart-total-label{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.08em}
+.cart-total-amount{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--blue)}
+.cart-note{font-size:.72rem;color:var(--mid);margin-bottom:10px;line-height:1.5;background:rgba(204,10,10,.06);border-radius:6px;padding:8px 10px;border-left:3px solid var(--red)}
+.btn-cart-presupuesto{width:100%;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.85rem;border-radius:10px;border:none;cursor:pointer;margin-bottom:8px;transition:background .2s}
+.btn-cart-presupuesto:hover{background:var(--blue2)}
+.btn-cart-wa{width:100%;background:#25D366;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.7rem;border-radius:10px;border:none;cursor:pointer;transition:background .2s}
+.btn-cart-wa:hover{background:#1ebe5a}
+/* price tag on product cards */
+.price-tag{display:flex;align-items:baseline;gap:4px;margin:.4rem 0 .3rem}
+.price-tag .price-amount{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:900;color:var(--blue)}
+.price-tag .price-unit{font-size:.72rem;color:var(--mid);font-weight:600}
+.price-tag .price-rollo{font-size:.68rem;background:rgba(27,43,173,.08);color:var(--blue);border-radius:4px;padding:.15rem .4rem;font-weight:700}
+.btn-add-cart{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:6px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border-radius:6px;border:none;cursor:pointer;transition:background .2s}
+.btn-add-cart:hover{background:var(--red2)}
+.btn-pedir-presupuesto{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:6px;background:var(--off);color:var(--blue);font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.5rem 1rem;border-radius:6px;border:1.5px dashed var(--blue);cursor:pointer;transition:all .2s}
+.btn-pedir-presupuesto:hover{background:rgba(27,43,173,.08)}
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:490}
+.cart-overlay.show{display:block}
+/* presupuesto buttons */
+.presup-btns{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn-generate-dl{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.9rem 1rem;border-radius:10px;border:none;cursor:pointer;transition:background .2s,transform .15s;min-width:160px}
+.btn-generate-dl:hover{background:var(--blue2);transform:translateY(-2px)}
+.btn-generate-wa{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:#25D366;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.9rem 1rem;border-radius:10px;border:none;cursor:pointer;transition:background .2s,transform .15s;min-width:160px}
+.btn-generate-wa:hover{background:#1ebe5a;transform:translateY(-2px)}
+
+/* ── COMPRA ── */
+.compra-layout{display:grid;grid-template-columns:1fr 360px;gap:24px;padding:0 32px}
+.compra-form{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:24px;box-shadow:var(--shadow)}
+.compra-summary{position:sticky;top:80px}
+.order-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.order-card-title{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+.order-empty{text-align:center;padding:24px 16px;color:var(--mid);font-size:.85rem}
+.order-item{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);gap:8px}
+.order-item:last-child{border-bottom:none}
+.order-item-name{font-size:.85rem;font-weight:600;color:var(--dark);flex:1}
+.order-item-sub{font-size:.72rem;color:var(--mid);margin-top:2px}
+.order-item-price{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:var(--blue);flex-shrink:0}
+.order-total-block{background:var(--off);border-radius:10px;padding:14px;margin-top:12px}
+.order-total-line{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--mid);margin-bottom:6px}
+.order-total-line.big{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--blue);margin-bottom:0}
+.order-total-line.big span:first-child{font-size:.85rem;font-weight:700;color:var(--dark)}
+/* retiro selector */
+.retiro-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.retiro-opt{border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;text-align:center;background:#fff}
+.retiro-opt:hover{border-color:var(--blue)}
+.retiro-opt.selected{border-color:var(--blue);background:rgba(27,43,173,.05)}
+.retiro-opt .retiro-ico{font-size:1.8rem;margin-bottom:6px}
+.retiro-opt .retiro-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:2px}
+.retiro-opt .retiro-sub{font-size:.72rem;color:var(--mid)}
+.retiro-opt.selected .retiro-title{color:var(--blue)}
+/* envio fields */
+.envio-fields{display:none;background:rgba(27,43,173,.04);border-radius:10px;padding:14px;margin-bottom:12px;border:1.5px dashed var(--blue)}
+.envio-fields.show{display:block}
+.envio-notice{font-size:.78rem;color:var(--blue);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+/* pago selector */
+.pago-compra-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.pago-compra-radio{display:none}
+.pago-compra-radio+label{padding:.5rem 1.1rem;border:1.5px solid var(--border);border-radius:20px;font-size:.82rem;cursor:pointer;transition:all .2s;color:var(--mid);font-family:'Barlow Condensed',sans-serif;font-weight:600;display:inline-flex;align-items:center;gap:0}
+.pago-compra-radio:checked+label{border-color:var(--blue);background:var(--blue);color:#fff}
+.pago-compra-radio:checked+label .pago-recargo-tag{background:rgba(255,255,255,.25);color:#fff}
+.order-total-line.recargo{color:var(--red);font-weight:600}
+.order-total-line.recargo span:last-child{color:var(--red);font-weight:700}
+/* order confirm btns */
+.order-btns{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn-order-dl{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.9rem 1rem;border-radius:10px;border:none;cursor:pointer;transition:background .2s,transform .15s;min-width:140px}
+.btn-order-dl:hover{background:var(--blue2);transform:translateY(-2px)}
+.btn-order-wa{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:#25D366;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.9rem 1rem;border-radius:10px;border:none;cursor:pointer;transition:background .2s,transform .15s;min-width:140px}
+.btn-order-wa:hover{background:#1ebe5a;transform:translateY(-2px)}
+/* MP pay button */
+.btn-pagar-mp{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:14px;background:linear-gradient(135deg,#009EE3 0%,#00BCFF 100%);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:1rem 1.5rem;border-radius:12px;border:none;cursor:pointer;transition:opacity .2s,transform .15s;box-shadow:0 4px 18px rgba(0,158,227,.35)}
+.btn-pagar-mp:hover{opacity:.92;transform:translateY(-2px)}
+.btn-pagar-mp:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.mp-separator{display:flex;align-items:center;gap:10px;margin:16px 0 0;color:var(--mid);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.mp-separator::before,.mp-separator::after{content:'';flex:1;height:1px;background:var(--border)}
+.pago-result{display:none;border-radius:12px;padding:18px 20px;margin:0 32px 20px;text-align:center}
+.pago-result.show{display:block}
+.pago-result.exitoso{background:rgba(37,211,102,.1);border:2px solid #25D366}
+.pago-result.fallido{background:rgba(204,10,10,.07);border:2px solid var(--red)}
+.pago-result.pendiente{background:rgba(255,165,0,.1);border:2px solid orange}
+.pago-result h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;margin-bottom:6px}
+.pago-result.exitoso h3{color:#1a8a3a}
+.pago-result.fallido h3{color:var(--red)}
+.pago-result.pendiente h3{color:darkorange}
+.pago-result p{font-size:.85rem;color:var(--mid);line-height:1.6}
+.mp-spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.efectivo-notice{background:rgba(27,43,173,.06);border:1.5px solid rgba(27,43,173,.2);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:.82rem;color:var(--dark);line-height:1.6;display:none}
+.efectivo-notice.show{display:block}
+.cart-to-order-btn{width:100%;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.75rem;border-radius:10px;border:none;cursor:pointer;margin-top:10px;transition:background .2s}
+.cart-to-order-btn:hover{background:var(--red2)}
+.order-preview-label{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;display:block}
+/* order pdf preview */
+.opdf{border:1.5px solid var(--border);border-radius:10px;padding:18px;background:var(--off)}
+.opdf-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--blue);padding-bottom:10px;margin-bottom:12px}
+.opdf-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--blue)}
+.opdf-logo span{color:var(--red)}
+.opdf-num{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--blue);text-align:right}
+.opdf-sec{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:4px;margin-top:10px}
+.opdf-table{width:100%;border-collapse:collapse;margin-top:4px;font-size:.75rem}
+.opdf-table th{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding:.25rem .35rem;border-bottom:2px solid var(--border);text-align:left}
+.opdf-table td{padding:.3rem .35rem;border-bottom:1px solid var(--border)}
+.opdf-badge{display:inline-flex;align-items:center;gap:4px;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;padding:.25rem .6rem;border-radius:4px;margin-top:4px}
+.opdf-envio-badge{background:var(--red)}
+@media(max-width:900px){.compra-layout{grid-template-columns:1fr;padding:0 16px}.compra-summary{position:static}.retiro-selector{grid-template-columns:1fr 1fr}}
+
+/* ── NOSOTROS ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:0 32px}
+.about-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);padding:24px;box-shadow:var(--shadow)}
+.about-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.about-card p{font-size:.88rem;color:var(--mid);line-height:1.7}
+.about-values{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.about-val{display:flex;align-items:flex-start;gap:10px}
+.about-val-ico{width:28px;height:28px;background:rgba(27,43,173,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;margin-top:1px}
+.about-val-text strong{display:block;font-size:.88rem;font-weight:600;color:var(--dark);margin-bottom:1px}
+.about-val-text span{font-size:.78rem;color:var(--mid)}
+.contact-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.contact-row{display:flex;align-items:center;gap:12px}
+.contact-row-ico{width:36px;height:36px;background:rgba(27,43,173,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-row-info{font-size:.85rem}
+.contact-row-info strong{display:block;font-weight:600;color:var(--dark)}
+.contact-row-info span{color:var(--mid);font-size:.78rem}
+.btn-wa-full{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.85rem;border-radius:10px;text-decoration:none;margin-top:16px;transition:background .2s}
+.btn-wa-full:hover{background:#1ebe5a}
+
+/* ── SPACING UTIL ── */
+.gap{height:24px}
+.gap-sm{height:14px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding-bottom:80px;padding-top:60px}
+  .topbar{display:flex}
+  .bottom-nav{display:flex}
+  .hero-banner{padding:28px 20px 36px}
+  .hero-banner::after{font-size:120px}
+  .sec{padding:20px 16px 0}
+  .info-cards,.cat-grid,.prod-grid,.about-grid{padding:0 16px}
+  .horiz-scroll{padding:0 16px}
+  .promo-card{margin:0 16px;padding:22px}
+  .calc-box{margin:0 16px}
+  .calc-body{padding:16px}
+  .budget-layout{grid-template-columns:1fr;padding:0 16px}
+  .budget-preview{position:static}
+  .picker-bar{grid-template-columns:1fr 1fr}
+  .btn-add{grid-column:1/-1}
+  .about-grid{grid-template-columns:1fr;padding:0 16px}
+  .field-row{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+}
+/* ── IMPORT EXCEL PAGE ── */
+.import-box{background:#fff;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin:0 32px}
+.import-header{background:linear-gradient(135deg,#1a7a3c 0%,#1d5c2f 100%);padding:20px 24px;display:flex;align-items:center;gap:12px}
+.import-header-ico{width:40px;height:40px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.import-header h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:#fff}
+.import-header p{color:rgba(255,255,255,.65);font-size:.78rem}
+.import-body{padding:24px}
+.drop-zone{border:2.5px dashed #c0c4d8;border-radius:12px;padding:40px 24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--off);margin-bottom:20px}
+.drop-zone.drag-over{border-color:#1a7a3c;background:rgba(26,122,60,.06)}
+.drop-zone.has-file{border-color:#1a7a3c;background:rgba(26,122,60,.05)}
+.drop-zone-ico{font-size:2.8rem;margin-bottom:10px;line-height:1}
+.drop-zone-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:4px}
+.drop-zone-sub{font-size:.82rem;color:var(--mid)}
+.btn-import-file{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.6rem 1.4rem;border-radius:7px;border:none;cursor:pointer;margin-top:14px;transition:background .2s}
+.btn-import-file:hover{background:var(--blue2)}
+.import-help{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:20px}
+.import-help h4{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:var(--blue);margin-bottom:8px}
+.import-help-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.import-col-item{background:#fff;border:1px solid var(--border);border-radius:7px;padding:10px 12px;text-align:center}
+.import-col-item .col-name{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:var(--dark)}
+.import-col-item .col-desc{font-size:.72rem;color:var(--mid);margin-top:2px}
+.import-col-item .col-eg{font-size:.7rem;color:var(--blue);font-weight:600;margin-top:3px}
+.import-status{border-radius:8px;padding:12px 16px;font-size:.85rem;font-weight:600;margin-bottom:16px;display:none;align-items:center;gap:8px}
+.import-status.ok{background:rgba(26,122,60,.1);border:1px solid rgba(26,122,60,.25);color:#1a5c2f;display:flex}
+.import-status.err{background:rgba(204,10,10,.08);border:1px solid rgba(204,10,10,.2);color:var(--red);display:flex}
+.import-status.warn{background:rgba(255,160,0,.1);border:1px solid rgba(255,160,0,.25);color:#7a5200;display:flex}
+.import-table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:16px}
+.import-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.import-table th{background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .8rem;text-align:left;white-space:nowrap}
+.import-table td{padding:.4rem .8rem;border-bottom:1px solid var(--border);color:var(--dark)}
+.import-table tr:last-child td{border-bottom:none}
+.import-table tr:nth-child(even) td{background:var(--off)}
+.import-table .td-price{color:#1a7a3c;font-weight:700;font-family:'Barlow Condensed',sans-serif}
+.import-table .td-stock{color:var(--blue);font-weight:700;font-family:'Barlow Condensed',sans-serif}
+.import-table .td-nomatch{color:var(--mid);font-style:italic}
+.btn-apply-import{display:flex;align-items:center;justify-content:center;gap:8px;background:#1a7a3c;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;border-radius:8px;border:none;cursor:pointer;transition:background .2s;width:100%}
+.btn-apply-import:hover{background:#155c2f}
+.btn-clear-import{display:flex;align-items:center;justify-content:center;gap:6px;background:none;color:var(--red);border:1.5px solid var(--red);font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1.4rem;border-radius:8px;cursor:pointer;transition:all .2s;margin-top:8px;width:100%}
+.btn-clear-import:hover{background:var(--red);color:#fff}
+.price-imported-badge{background:rgba(26,122,60,.12);color:#1a5c2f;border:1px solid rgba(26,122,60,.25);border-radius:4px;font-size:.65rem;font-weight:700;padding:.1rem .4rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-left:4px}
+.stock-tag{font-size:.7rem;font-weight:700;padding:.1rem .45rem;border-radius:4px;font-family:'Barlow Condensed',sans-serif}
+.stock-ok{background:rgba(26,122,60,.1);color:#1a5c2f}
+.stock-low{background:rgba(255,160,0,.12);color:#7a5200}
+.stock-out{background:rgba(204,10,10,.1);color:var(--red)}
+.import-summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.import-sum-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.import-sum-card .n{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:var(--blue)}
+.import-sum-card .l{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:2px}
+.import-sum-card.green .n{color:#1a7a3c}
+.import-sum-card.red .n{color:var(--red)}
+.import-sum-card.orange .n{color:#d97706}
+
+/* ── AUTH MODAL ── */
+.auth-overlay{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(10,14,40,.72);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;
+}
+.auth-overlay.show{display:flex}
+.auth-modal{
+  background:#fff;border-radius:16px;width:100%;max-width:420px;
+  box-shadow:0 24px 64px rgba(27,43,173,.22);overflow:hidden;
+  animation:authIn .25s ease both;
+}
+@keyframes authIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.auth-modal-header{
+  background:linear-gradient(135deg,var(--blue) 0%,#0e1d7a 100%);
+  padding:28px 28px 24px;position:relative;
+}
+.auth-modal-header::after{content:'⚡';position:absolute;right:16px;bottom:-10px;font-size:80px;opacity:.07;line-height:1;pointer-events:none}
+.auth-modal-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.auth-modal-logo .tri{width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:19px solid var(--red);flex-shrink:0}
+.auth-modal-tabs{display:flex;gap:6px}
+.auth-tab{flex:1;padding:.55rem .5rem;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.auth-tab.active{background:#fff;color:var(--blue);border-color:#fff}
+.auth-modal-body{padding:24px 28px 28px}
+.auth-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.auth-field label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.auth-field input{padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-size:.95rem;font-family:'Barlow',sans-serif;outline:none;transition:border-color .2s;color:var(--dark)}
+.auth-field input:focus{border-color:var(--blue)}
+.auth-field input.err{border-color:var(--red)}
+.auth-error{background:rgba(204,10,10,.08);border:1px solid rgba(204,10,10,.2);color:var(--red);border-radius:7px;padding:.6rem .9rem;font-size:.82rem;font-weight:600;margin-bottom:14px;display:none}
+.auth-error.show{display:block}
+.auth-success{background:rgba(26,122,60,.08);border:1px solid rgba(26,122,60,.2);color:#1a5c2f;border-radius:7px;padding:.6rem .9rem;font-size:.82rem;font-weight:600;margin-bottom:14px;display:none}
+.auth-success.show{display:block}
+.btn-auth-submit{width:100%;padding:.9rem;background:var(--blue);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;cursor:pointer;transition:background .2s,transform .15s;margin-top:4px}
+.btn-auth-submit:hover{background:var(--blue2);transform:translateY(-1px)}
+.auth-hint{font-size:.76rem;color:var(--mid);text-align:center;margin-top:12px;line-height:1.5}
+.auth-hint a{color:var(--blue);font-weight:600;cursor:pointer;text-decoration:underline}
+/* ── USER PILL en sidebar ── */
+.auth-user-pill{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;
+  margin:0 12px 8px;cursor:pointer;transition:background .2s;
+}
+.auth-user-pill:hover{background:rgba(255,255,255,.17)}
+.auth-user-avatar{width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;color:#fff;flex-shrink:0}
+.auth-user-name{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.auth-user-role{font-size:.65rem;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
+.btn-auth-logout{background:none;border:1px solid rgba(255,255,255,.2);border-radius:6px;color:rgba(255,255,255,.6);font-size:.7rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .55rem;cursor:pointer;transition:all .2s;flex-shrink:0}
+.btn-auth-logout:hover{background:rgba(204,10,10,.3);border-color:var(--red);color:#fff}
+/* ── LOGIN PROMPT en sidebar (cuando no está logueado) ── */
+.auth-login-prompt{margin:0 12px 8px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+.auth-login-prompt-inner{padding:12px 14px}
+.auth-login-prompt p{font-size:.75rem;color:rgba(255,255,255,.55);margin-bottom:8px;line-height:1.4}
+.btn-auth-open{width:100%;padding:.55rem;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:6px;cursor:pointer;transition:background .2s}
+.btn-auth-open:hover{background:var(--red2)}
+/* ── GUEST BLOCKER (para páginas protegidas) ── */
+.guest-block{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 32px;text-align:center;
+}
+.guest-block.show{display:flex}
+.guest-block-ico{font-size:3rem;margin-bottom:16px}
+.guest-block h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--blue);margin-bottom:8px}
+.guest-block p{font-size:.88rem;color:var(--mid);margin-bottom:20px;max-width:320px;line-height:1.6}
+
+/* overlay for mobile sidebar */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:250}
+.sidebar-overlay.show{display:block}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE TOPBAR -->
+<div class="topbar" id="topbar">
+  <button class="topbar-ico" onclick="toggleSidebar()">☰</button>
+  <div class="topbar-logo"><div class="tri"></div>Alvez <span style="opacity:.6;font-weight:500">&nbsp;Electricidad</span></div>
+  <button class="topbar-ico" onclick="goPage('presupuesto')">📋</button>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <a href="#" class="brand" onclick="goPage('inicio');return false">
+      <div class="tri"></div>
+      Alvez <span>&nbsp;Electricidad</span>
+    </a>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">Principal</div>
+    <button class="sidebar-link active" id="nav-inicio" onclick="goPage('inicio')"><div class="ico">🏠</div>Inicio</button>
+    <button class="sidebar-link" id="nav-catalogo" onclick="goPage('catalogo')"><div class="ico">📦</div>Catálogo</button>
+    <button class="sidebar-link" id="nav-presupuesto" onclick="goPage('presupuesto')"><div class="ico">📋</div>Presupuesto</button>
+    <button class="sidebar-link" id="nav-compra" onclick="goPage('compra')" style="border-left:3px solid var(--red)"><div class="ico" style="background:var(--red)">🛒</div>Realizar compra</button>
+    <button class="sidebar-link" id="nav-calculadora" onclick="goPage('calculadora')"><div class="ico">🧮</div>Calculadora</button>
+    <div class="sidebar-section">Gestión</div>
+    <button class="sidebar-link" id="nav-importar" onclick="goPage('importar')" style="display:none"><div class="ico">📊</div>Importar precios</button>
+    <div class="sidebar-section">Info</div>
+    <button class="sidebar-link" id="nav-nosotros" onclick="goPage('nosotros')"><div class="ico">⚡</div>Quiénes somos</button>
+    <button class="sidebar-link" id="nav-contacto" onclick="goPage('contacto')"><div class="ico">📱</div>Contacto</button>
+  </nav>
+  <!-- Auth user pill / login prompt -->
+  <div id="auth-sidebar-logged" style="display:none">
+    <div class="auth-user-pill" onclick="showAuthModal('login')">
+      <div class="auth-user-avatar" id="auth-avatar-letter">U</div>
+      <div style="flex:1;overflow:hidden">
+        <div class="auth-user-name" id="auth-sidebar-name">Usuario</div>
+        <div class="auth-user-role" id="auth-user-role-label">Sesión activa</div>
+      </div>
+      <button class="btn-auth-logout" onclick="event.stopPropagation();authLogout()">Salir</button>
+    </div>
+  </div>
+  <div id="auth-sidebar-guest">
+    <div class="auth-login-prompt">
+      <div class="auth-login-prompt-inner">
+        <p>Iniciá sesión para acceder a todas las funciones</p>
+        <button class="btn-auth-open" onclick="showAuthModal('login')">🔐 Iniciar sesión</button>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-contact-item">📍 San Lorenzo 109 Este</div>
+    <div class="sidebar-contact-item">📱 345 407-9486</div>
+    <div class="sidebar-contact-item">✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="014b6e72646c60736860606d77647b417860696e6e2f626e6c2f6073">[email&#160;protected]</a></div>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- ══════════ INICIO ══════════ -->
+  <div class="page active" id="page-inicio">
+    <!-- Hero -->
+    <div class="hero-banner">
+      <div class="hero-tag">⚡ San Lorenzo 109 Este · Desde 2014</div>
+      <h1 class="hero-title">Tu local de<br>materiales <em>eléctricos</em></h1>
+      <p class="hero-sub">Venta y asesoramiento de cables, cajas, llaves, tomacorrientes y más. Todo lo que necesitás para tu instalación.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-main" onclick="goPage('presupuesto')">📋 Armar presupuesto</button>
+        <button class="btn-hero-sec" onclick="goPage('catalogo')">Ver catálogo →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">10+</div><div class="l">Años de exp.</div></div>
+        <div class="hero-stat"><div class="n">+500</div><div class="l">Productos</div></div>
+        <div class="hero-stat"><div class="n">100%</div><div class="l">Asesora. gratis</div></div>
+        <div class="hero-stat"><div class="n">24h</div><div class="l">Respuesta WA</div></div>
+      </div>
+    </div>
+
+    <!-- Métodos de pago y envío -->
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Opciones del local</div><div class="sec-sub">Métodos de pago y atención</div></div>
+    <div class="gap-sm"></div>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-ico blue">💳</div>
+        <div>
+          <div class="info-card-title">Métodos de pago</div>
+          <div class="info-card-sub">Ver opciones disponibles</div>
+          <div class="info-card-chips">
+            <span class="chip">Tarjeta</span><span class="chip">Efectivo</span><span class="chip">Transferencia</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-ico red">📦</div>
+        <div>
+          <div class="info-card-title">Retiro en local</div>
+          <div class="info-card-sub">San Lorenzo 109 Este</div>
+          <div class="info-card-chips"><span class="chip">L-V 8-18hs</span><span class="chip">Sáb 8-13hs</span></div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-ico green">💬</div>
+        <div>
+          <div class="info-card-title">Presupuestos por WA</div>
+          <div class="info-card-sub">345 407-9486</div>
+          <div class="info-card-chips"><span class="chip">Rápido</span><span class="chip">Gratis</span></div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-ico blue">🧮</div>
+        <div>
+          <div class="info-card-title">Calculadora gratis</div>
+          <div class="info-card-sub">Calculá cuánto material necesitás</div>
+          <div class="info-card-chips"><span class="chip">Sin registro</span><span class="chip">100% gratis</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categorías principales -->
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Categorías principales</div><div class="sec-sub">Explorá nuestra línea completa</div></div>
+    <div class="gap-sm"></div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('cables')"><div class="cat-ico">🔌</div><div class="cat-card-name">Cables</div></div>
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('cajas')"><div class="cat-ico">📦</div><div class="cat-card-name">Cajas instalación</div></div>
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('estancas')"><div class="cat-ico">🛡️</div><div class="cat-card-name">Cajas estancas</div></div>
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('jeluz')"><div class="cat-ico">🔲</div><div class="cat-card-name">Jeluz Verona</div></div>
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('modulos')"><div class="cat-ico">🔵</div><div class="cat-card-name">Módulos</div></div>
+      <div class="cat-card" onclick="goPage('catalogo');filterCat('todos')"><div class="cat-ico">⚡</div><div class="cat-card-name">Ver todo</div></div>
+    </div>
+
+    <!-- Productos destacados -->
+    <div class="gap"></div>
+    <div class="sec" style="display:flex;align-items:center;justify-content:space-between;padding-right:32px">
+      <div><div class="sec-title">Productos destacados</div><div class="sec-sub">Los más consultados del catálogo</div></div>
+      <button onclick="goPage('catalogo')" style="background:none;border:1.5px solid var(--blue);color:var(--blue);font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;padding:.4rem .9rem;border-radius:20px;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--blue)';this.style.color='#fff'" onmouseout="this.style.background='none';this.style.color='var(--blue)'">Ver todos →</button>
+    </div>
+    <div class="gap-sm"></div>
+    <div class="horiz-scroll">
+      <div class="prod-card">
+        <div class="prod-card-img">🔌<span class="prod-card-badge">Popular</span></div>
+        <div class="prod-card-body">
+          <div class="prod-cat-tag">Cableado</div>
+          <div class="prod-card-name">Cable Unipolar</div>
+          <div class="prod-card-vars"><span class="prod-var">1×1mm</span><span class="prod-var">1×2.5mm</span><span class="prod-var">1×4mm</span></div>
+          <button class="btn-add-to-budget" onclick="addToBudget('Cable Unipolar','Cableado','1×2.50 mm','1')">+ Agregar al presupuesto</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div>
+        <div class="prod-card-body">
+          <div class="prod-cat-tag">Cajas instalación</div>
+          <div class="prod-card-name">Caja Rect. y Octog.</div>
+          <div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div>
+          <div class="prod-card-desc" style="color:var(--red);font-weight:600;font-size:.75rem">$263,67 c/u (×10 o más)</div>
+          <button class="btn-add-to-budget" onclick="addToBudget('Caja Rect. y Octogonal','Cajas instalación','Chapa 20','10')">+ Agregar al presupuesto</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-img">🔲</div>
+        <div class="prod-card-body">
+          <div class="prod-cat-tag">Jeluz Verona</div>
+          <div class="prod-card-name">Bastidor 3 módulos</div>
+          <div class="prod-card-vars"><span class="prod-var">3 módulos</span></div>
+          <button class="btn-add-to-budget" onclick="addToBudget('Bastidor 3 módulos','Jeluz Verona','—','1')">+ Agregar al presupuesto</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-img">🔵</div>
+        <div class="prod-card-body">
+          <div class="prod-cat-tag">Jeluz Verona</div>
+          <div class="prod-card-name">Módulo Toma 10A</div>
+          <div class="prod-card-vars"><span class="prod-var">10 amperes</span></div>
+          <button class="btn-add-to-budget" onclick="addToBudget('Módulo Toma 10A','Jeluz Verona','10 amperes','1')">+ Agregar al presupuesto</button>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-img">🛡️</div>
+        <div class="prod-card-body">
+          <div class="prod-cat-tag">Cajas estancas</div>
+          <div class="prod-card-name">Caja Estanca IP65</div>
+          <div class="prod-card-vars"><span class="prod-var">90×90×55</span><span class="prod-var">160×100×65</span></div>
+          <button class="btn-add-to-budget" onclick="addToBudget('Caja Estanca IP65','Cajas estancas','90×90×55 mm','1')">+ Agregar al presupuesto</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promo calculadora -->
+    <div class="gap"></div>
+    <div class="promo-card">
+      <h3>¿No sabés cuánto<br>material necesitás?</h3>
+      <p>Usá nuestra calculadora gratuita y obtené una estimación exacta para tu proyecto. Ahorrá tiempo calculando los materiales necesarios.</p>
+      <div class="promo-checks">
+        <div class="promo-check">100% Gratis</div>
+        <div class="promo-check">Sin registro</div>
+        <div class="promo-check">Resultado inmediato</div>
+      </div>
+      <div class="promo-btns">
+        <button class="btn-hero-main" onclick="goPage('calculadora')">🧮 Calcular material gratis →</button>
+        <a href="https://wa.me/5493454079486?text=Hola!%20Quisiera%20consultar%20sobre%20materiales." class="btn-hero-sec" target="_blank">💬 Consultar por WA</a>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ CATÁLOGO ══════════ -->
+  <div class="page" id="page-catalogo">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Catálogo 2024</div><div class="sec-sub">Todos nuestros productos disponibles</div></div>
+    <div class="gap-sm"></div>
+    <div class="cat-grid" id="cat-filter-grid">
+      <div class="cat-card active-cat" onclick="filterCat('todos',this)"><div class="cat-ico">⚡</div><div class="cat-card-name">Todos</div></div>
+      <div class="cat-card" onclick="filterCat('cables',this)"><div class="cat-ico">🔌</div><div class="cat-card-name">Cables</div></div>
+      <div class="cat-card" onclick="filterCat('cajas',this)"><div class="cat-ico">📦</div><div class="cat-card-name">Cajas inst.</div></div>
+      <div class="cat-card" onclick="filterCat('estancas',this)"><div class="cat-ico">🛡️</div><div class="cat-card-name">Estancas</div></div>
+      <div class="cat-card" onclick="filterCat('jeluz',this)"><div class="cat-ico">🔲</div><div class="cat-card-name">Jeluz Verona</div></div>
+      <div class="cat-card" onclick="filterCat('modulos',this)"><div class="cat-ico">🔵</div><div class="cat-card-name">Módulos</div></div>
+    </div>
+    <div class="gap-sm"></div>
+    <div class="prod-grid" id="all-products">
+      <!-- cables -->
+      <div class="prod-card" data-cat="cables" data-sku="CAB-UNI-250"><div class="prod-card-img">🔌</div><div class="prod-card-body"><div class="prod-cat-tag">Cableado</div><div class="prod-card-name">Cable Unipolar</div><div class="prod-card-vars"><span class="prod-var">1×1mm</span><span class="prod-var">1×1.5mm</span><span class="prod-var">1×2.5mm</span><span class="prod-var">1×4mm</span><span class="prod-var">1×6mm</span></div><p class="prod-card-desc">Cobre con aislación. Norma IRAM NM 247-3. Marca Argenplas.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">Desde $8.500</span><span class="price-unit">/rollo 100m</span><span class="price-rollo">Rollo completo</span></div><button class="btn-add-cart" onclick="addToCart('Cable Unipolar','Cableado','1×2.50 mm',8500,'rollo',100)">🛒 Agregar rollo al carrito</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Cable Unipolar','Cableado','1×2.50 mm')">📋 Pedir presupuesto (fracción)</button></div></div>
+      <div class="prod-card" data-cat="cables" data-sku="CAB-TALL-2-250"><div class="prod-card-img">🔌</div><div class="prod-card-body"><div class="prod-cat-tag">Cableado</div><div class="prod-card-name">Cable Taller 2 cond.</div><div class="prod-card-vars"><span class="prod-var">2×1mm</span><span class="prod-var">2×1.5mm</span><span class="prod-var">2×2.5mm</span><span class="prod-var">2×4mm</span><span class="prod-var">2×6mm</span></div><p class="prod-card-desc">Cable multipolar flexible para industria y taller.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">Desde $14.200</span><span class="price-unit">/rollo 100m</span><span class="price-rollo">Rollo completo</span></div><button class="btn-add-cart" onclick="addToCart('Cable Taller 2 cond.','Cableado','2×2.50 mm',14200,'rollo',100)">🛒 Agregar rollo al carrito</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Cable Taller 2 conductores','Cableado','2×2.50 mm')">📋 Pedir presupuesto (fracción)</button></div></div>
+      <div class="prod-card" data-cat="cables" data-sku="CAB-TALL-3-250"><div class="prod-card-img">🔌</div><div class="prod-card-body"><div class="prod-cat-tag">Cableado</div><div class="prod-card-name">Cable Taller 3 cond.</div><div class="prod-card-vars"><span class="prod-var">3×1mm</span><span class="prod-var">3×1.5mm</span><span class="prod-var">3×2.5mm</span><span class="prod-var">3×4mm</span><span class="prod-var">3×6mm</span></div><p class="prod-card-desc">Tres conductores para instalaciones trifásicas.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">Desde $19.800</span><span class="price-unit">/rollo 100m</span><span class="price-rollo">Rollo completo</span></div><button class="btn-add-cart" onclick="addToCart('Cable Taller 3 cond.','Cableado','3×2.50 mm',19800,'rollo',100)">🛒 Agregar rollo al carrito</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Cable Taller 3 conductores','Cableado','3×2.50 mm')">📋 Pedir presupuesto (fracción)</button></div></div>
+      <div class="prod-card" data-cat="cables" data-sku="CAB-TALL-4-250"><div class="prod-card-img">🔌</div><div class="prod-card-body"><div class="prod-cat-tag">Cableado</div><div class="prod-card-name">Cable Taller 4 y 5 cond.</div><div class="prod-card-vars"><span class="prod-var">4×1mm</span><span class="prod-var">4×2.5mm</span><span class="prod-var">5×1.5mm</span><span class="prod-var">5×2.5mm</span></div><p class="prod-card-desc">Multipolar de 4 y 5 conductores para tableros complejos.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">Desde $28.400</span><span class="price-unit">/rollo 100m</span><span class="price-rollo">Rollo completo</span></div><button class="btn-add-cart" onclick="addToCart('Cable Taller 4/5 cond.','Cableado','4×2.50 mm',28400,'rollo',100)">🛒 Agregar rollo al carrito</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Cable Taller 4 conductores','Cableado','4×2.50 mm')">📋 Pedir presupuesto (fracción)</button></div></div>
+      <div class="prod-card" data-cat="cables" data-sku="CAB-SUB-250"><div class="prod-card-img">🟣</div><div class="prod-card-body"><div class="prod-cat-tag">Cableado</div><div class="prod-card-name">Cable Subterráneo</div><div class="prod-card-vars"><span class="prod-var">2×1mm</span><span class="prod-var">2×2.5mm</span><span class="prod-var">3×2.5mm</span><span class="prod-var">4×4mm</span><span class="prod-var">5×6mm</span></div><p class="prod-card-desc">Cubierta protectora para instalaciones enterradas. Alta resistencia a la humedad.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">Desde $22.100</span><span class="price-unit">/rollo 100m</span><span class="price-rollo">Rollo completo</span></div><button class="btn-add-cart" onclick="addToCart('Cable Subterráneo','Cableado','2×2.50 mm',22100,'rollo',100)">🛒 Agregar rollo al carrito</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Cable Subterráneo','Cableado','2×2.50 mm')">📋 Pedir presupuesto (fracción)</button></div></div>
+      <!-- cajas -->
+      <div class="prod-card" data-cat="cajas" data-sku="CAJ-RECT-CH20"><div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div><div class="prod-card-body"><div class="prod-cat-tag">Cajas instalación</div><div class="prod-card-name">Caja Rect. y Octogonal</div><div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div><p class="prod-card-desc">Para embutir en paredes. Precio mayorista por 10 o más.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">$263,67</span><span class="price-unit">c/u (×10+)</span></div><button class="btn-add-cart" onclick="addToCart('Caja Rect. y Octogonal','Cajas instalación','Chapa 20',2636.70,'pack x10',10)">🛒 Agregar pack ×10</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Caja Rect. y Octogonal','Cajas instalación','Chapa 20')">📋 Pedir presupuesto (menor cant.)</button></div></div>
+      <div class="prod-card" data-cat="cajas" data-sku="CAJ-MIGNON-CH20"><div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div><div class="prod-card-body"><div class="prod-cat-tag">Cajas instalación</div><div class="prod-card-name">Caja Mignon</div><div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">$263,37</span><span class="price-unit">c/u (×10+)</span></div><button class="btn-add-cart" onclick="addToCart('Caja Mignon','Cajas instalación','Chapa 20',2633.70,'pack x10',10)">🛒 Agregar pack ×10</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Caja Mignon','Cajas instalación','Chapa 20')">📋 Pedir presupuesto (menor cant.)</button></div></div>
+      <div class="prod-card" data-cat="cajas" data-sku="CAJ-RECT-PROF-CH20"><div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div><div class="prod-card-body"><div class="prod-cat-tag">Cajas instalación</div><div class="prod-card-name">Caja Rect. Profunda</div><div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">$624,73</span><span class="price-unit">c/u (×10+)</span></div><button class="btn-add-cart" onclick="addToCart('Caja Rect. Profunda','Cajas instalación','Chapa 20',6247.30,'pack x10',10)">🛒 Agregar pack ×10</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Caja Rect. Profunda','Cajas instalación','Chapa 20')">📋 Pedir presupuesto (menor cant.)</button></div></div>
+      <div class="prod-card" data-cat="cajas" data-sku="CAJ-1010-CH20"><div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div><div class="prod-card-body"><div class="prod-cat-tag">Cajas instalación</div><div class="prod-card-name">Caja 10×10</div><div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">$655,35</span><span class="price-unit">c/u (×10+)</span></div><button class="btn-add-cart" onclick="addToCart('Caja 10×10','Cajas instalación','Chapa 20',6553.50,'pack x10',10)">🛒 Agregar pack ×10</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Caja 10×10','Cajas instalación','Chapa 20')">📋 Pedir presupuesto (menor cant.)</button></div></div>
+      <div class="prod-card" data-cat="cajas" data-sku="CAJ-OCT-GRANDE-CH20"><div class="prod-card-img">📦<span class="prod-card-badge">Promo x10</span></div><div class="prod-card-body"><div class="prod-cat-tag">Cajas instalación</div><div class="prod-card-name">Caja Octogonal Grande</div><div class="prod-card-vars"><span class="prod-var">Chapa 20</span></div><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><div class="price-tag"><span class="price-amount">$600,23</span><span class="price-unit">c/u (×10+)</span></div><button class="btn-add-cart" onclick="addToCart('Caja Octogonal Grande','Cajas instalación','Chapa 20',6002.30,'pack x10',10)">🛒 Agregar pack ×10</button><button class="btn-pedir-presupuesto" onclick="addToBudgetFromCat('Caja Octogonal Grande','Cajas instalación','Chapa 20')">📋 Pedir presupuesto (menor cant.)</button></div></div>
+      <!-- estancas -->
+      <div class="prod-card" data-cat="estancas" data-sku="CAJ-EST-IP65-9090"><div class="prod-card-img">🛡️</div><div class="prod-card-body"><div class="prod-cat-tag">Cajas estancas</div><div class="prod-card-name">Caja Estanca IP65</div><div class="prod-card-vars"><span class="prod-var">90×90×55mm</span><span class="prod-var">115×65×55mm</span><span class="prod-var">160×100×65mm</span><span class="prod-var">31×31×160mm</span></div><p class="prod-card-desc">Protección IP65. Para ambientes húmedos o exigentes.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Caja Estanca IP65','Cajas estancas','90×90×55 mm','1')">+ Al presupuesto</button></div></div>
+      <!-- jeluz -->
+      <div class="prod-card" data-cat="jeluz" data-sku="BAS-3M"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">🔲</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Bastidor 3 módulos</div><p class="prod-card-desc">Bastidor para armar la combinación que necesitás.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Bastidor 3 módulos','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="jeluz" data-sku="TAPA-BLANC-3M"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⬜</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Tapa Blanca 3 mód.</div><p class="prod-card-desc">Tapa blanca para bastidor de 3 módulos. Acabado premium.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Tapa Blanca 3 módulos','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="jeluz" data-sku="PORTA-MOD-EXT"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">🔳</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Porta Módulo Ext.</div><p class="prod-card-desc">Un solo módulo, uso por exterior.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Porta Módulo Exterior','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="jeluz" data-sku="BASE-EXT-SIM"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⬛</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Base Exterior Simple</div><p class="prod-card-desc">Para un porta módulo por superficie exterior.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Base Exterior Simple','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="jeluz" data-sku="BASE-EXT-DOB"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⬛⬛</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Base Exterior Doble</div><p class="prod-card-desc">Para dos porta módulos en superficie exterior.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Base Exterior Doble','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="jeluz" data-sku="BASE-EXT-TRI"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⬛⬛⬛</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Base Exterior Triple</div><p class="prod-card-desc">Para tres porta módulos en superficie exterior.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Base Exterior Triple','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+      <!-- módulos -->
+      <div class="prod-card" data-cat="modulos" data-sku="MOD-TOMA-10A"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">🔵</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Módulo Toma 10A</div><div class="prod-card-vars"><span class="prod-var">10 amperes</span></div><p class="prod-card-desc">Tomacorriente 10A compatible con bastidor Verona.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Módulo Toma 10A','Jeluz Verona','10 amperes','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="modulos" data-sku="MOD-TOMA-20A"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">🔵</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Módulo Toma 20A</div><div class="prod-card-vars"><span class="prod-var">20 amperes</span></div><p class="prod-card-desc">Tomacorriente 20A para cargas más exigentes.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Módulo Toma 20A','Jeluz Verona','20 amperes','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="modulos" data-sku="MOD-PUNTO-10A"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⚪</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Módulo Punto (Llave)</div><div class="prod-card-vars"><span class="prod-var">10 amperes</span></div><p class="prod-card-desc">Interruptor 10A para encendido/apagado de luminarias.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Módulo Punto (Llave)','Jeluz Verona','10 amperes','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="modulos" data-sku="MOD-TIMBRE-10A"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">🔔</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Módulo Punto Timbre</div><div class="prod-card-vars"><span class="prod-var">10 amperes</span></div><p class="prod-card-desc">Pulsador tipo timbre 10A, compatible con sistema Verona.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Módulo Punto Timbre','Jeluz Verona','10 amperes','1')">+ Al presupuesto</button></div></div>
+      <div class="prod-card" data-cat="modulos" data-sku="MOD-CIEGO"><div class="prod-card-img" style="background:linear-gradient(135deg,#111 0%,#222 100%)">⬜</div><div class="prod-card-body"><div class="prod-cat-tag">Jeluz Verona</div><div class="prod-card-name">Módulo Ciego</div><p class="prod-card-desc">Separador para completar bastidores o tapar espacios vacíos.</p><div class="imported-price-display" style="display:none;margin-bottom:6px;font-size:.75rem"></div><button class="btn-add-to-budget" onclick="addToBudget('Módulo Ciego','Jeluz Verona','—','1')">+ Al presupuesto</button></div></div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ PRESUPUESTO ══════════ -->
+  <div class="page" id="page-presupuesto">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Armá tu presupuesto</div><div class="sec-sub">Elegí productos y enviá el PDF por WhatsApp</div></div>
+    <div class="gap-sm"></div>
+    <div class="budget-layout">
+      <div class="budget-form">
+        <div class="form-section">Datos del cliente</div>
+        <div class="field-row">
+          <div class="field-g"><label>Nombre completo</label><input id="f-nombre" type="text" placeholder="Juan Pérez" oninput="pvUpdate()"/></div>
+          <div class="field-g"><label>DNI</label><input id="f-dni" type="text" placeholder="30123456" oninput="pvUpdate()"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field-g"><label>Dirección</label><input id="f-dir" type="text" placeholder="Av. San Martín 123" oninput="pvUpdate()"/></div>
+          <div class="field-g"><label>Teléfono</label><input id="f-tel" type="text" placeholder="345 123-4567" oninput="pvUpdate()"/></div>
+        </div>
+
+        <div class="form-section">Materiales del catálogo</div>
+        <div class="picker-bar">
+          <div class="field-g" style="grid-column:1/-1">
+            <label>Producto</label>
+            <select id="sel-prod" onchange="updateVariants()">
+              <optgroup label="── Cables ──">
+                <option value="Cable Unipolar|Cableado">Cable Unipolar</option>
+                <option value="Cable Taller 2 conductores|Cableado">Cable Taller 2 cond.</option>
+                <option value="Cable Taller 3 conductores|Cableado">Cable Taller 3 cond.</option>
+                <option value="Cable Taller 4 conductores|Cableado">Cable Taller 4 cond.</option>
+                <option value="Cable Taller 5 conductores|Cableado">Cable Taller 5 cond.</option>
+                <option value="Cable Subterráneo|Cableado">Cable Subterráneo</option>
+              </optgroup>
+              <optgroup label="── Cajas ──">
+                <option value="Caja Rect. y Octogonal|Cajas instalación">Caja Rect. y Octogonal</option>
+                <option value="Caja Mignon|Cajas instalación">Caja Mignon</option>
+                <option value="Caja Rect. Profunda|Cajas instalación">Caja Rect. Profunda</option>
+                <option value="Caja 10×10|Cajas instalación">Caja 10×10</option>
+                <option value="Caja Octogonal Grande|Cajas instalación">Caja Octogonal Grande</option>
+                <option value="Caja Estanca IP65|Cajas estancas">Caja Estanca IP65</option>
+              </optgroup>
+              <optgroup label="── Jeluz Verona ──">
+                <option value="Bastidor 3 módulos|Jeluz Verona">Bastidor 3 módulos</option>
+                <option value="Tapa Blanca 3 módulos|Jeluz Verona">Tapa Blanca 3 módulos</option>
+                <option value="Porta Módulo Exterior|Jeluz Verona">Porta Módulo Ext.</option>
+                <option value="Base Exterior Simple|Jeluz Verona">Base Exterior Simple</option>
+                <option value="Base Exterior Doble|Jeluz Verona">Base Exterior Doble</option>
+                <option value="Base Exterior Triple|Jeluz Verona">Base Exterior Triple</option>
+                <option value="Módulo Toma 10A|Jeluz Verona">Módulo Toma 10A</option>
+                <option value="Módulo Toma 20A|Jeluz Verona">Módulo Toma 20A</option>
+                <option value="Módulo Punto (Llave)|Jeluz Verona">Módulo Punto (Llave)</option>
+                <option value="Módulo Punto Timbre|Jeluz Verona">Módulo Punto Timbre</option>
+                <option value="Módulo Ciego|Jeluz Verona">Módulo Ciego</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field-g"><label>Variante</label><select id="sel-variant"></select></div>
+          <div class="field-g"><label>Cantidad</label><input id="inp-qty" type="text" value="1" style="max-width:90px"/></div>
+          <button class="btn-add" onclick="addItem()">+ Agregar</button>
+        </div>
+        <div class="item-list" id="item-list"><span style="font-size:.82rem;color:var(--mid);font-style:italic;padding:8px 4px;display:block">Elegí productos del catálogo para agregarlos.</span></div>
+
+        <div class="form-section">Forma de pago</div>
+        <div class="pago-row">
+          <input type="radio" name="pago" id="p1" class="pago-radio" value="Efectivo" onchange="pvUpdate()"/>
+          <label for="p1">💵 Efectivo <span class="pago-recargo-tag" style="background:rgba(37,160,80,.15);color:#1a8a3a">Sin recargo</span></label>
+          <input type="radio" name="pago" id="p2" class="pago-radio" value="Débito / Transferencia" onchange="pvUpdate()" checked/>
+          <label for="p2">💳 Débito / Transf. <span class="pago-recargo-tag">+15%</span></label>
+          <input type="radio" name="pago" id="p3" class="pago-radio" value="Tarjeta de crédito" onchange="pvUpdate()"/>
+          <label for="p3">🏦 Crédito <span class="pago-recargo-tag">+21% +15%</span></label>
+        </div>
+
+        <div class="presup-btns">
+          <button class="btn-generate-dl" onclick="generatePDF(false)">
+            📄 Descargar PDF
+          </button>
+          <button class="btn-generate-wa" onclick="generatePDF(true)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            PDF + WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <!-- PDF Preview -->
+      <div class="budget-preview">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:12px">Vista previa del pedido</div>
+        <div class="pdf-preview">
+          <div class="pdf-header">
+            <div>
+              <div class="pdf-logo">⚡ Alvez <span>Electricidad</span></div>
+              <div style="font-size:.65rem;color:var(--mid);margin-top:2px">FICHA DE PEDIDO OFICIAL</div>
+            </div>
+            <div style="text-align:right">
+              <div class="pdf-num-label">Pedido</div>
+              <div class="pdf-num" id="pv-num">N° 1</div>
+              <div class="pdf-date" id="pv-fecha">—</div>
+            </div>
+          </div>
+          <div class="pdf-sec">Datos del cliente</div>
+          <div class="pdf-client">
+            <div class="pdf-client-row"><span>Nombre: </span><strong id="pv-nombre">—</strong></div>
+            <div class="pdf-client-row"><span>DNI: </span><span id="pv-dni">—</span></div>
+            <div class="pdf-client-row"><span>Dirección: </span><span id="pv-dir">—</span></div>
+            <div class="pdf-client-row"><span>Teléfono: </span><span id="pv-tel">—</span></div>
+          </div>
+          <div class="pdf-sec">Materiales</div>
+          <table class="pdf-table"><thead><tr><th>#</th><th>Cat.</th><th>Material</th><th>Cant.</th><th>Precio</th></tr></thead>
+          <tbody id="pv-tbody"><tr><td colspan="5" style="color:var(--mid);font-size:.75rem;padding:.5rem .4rem">Sin materiales aún.</td></tr></tbody></table>
+          <div id="pv-total-row" style="display:none;margin-top:8px;text-align:right"><span style="font-size:.7rem;color:var(--mid)">Total estimado: </span><strong id="pv-total" style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--blue)">$0</strong></div>
+          <div id="pv-recargo-row" style="display:none;margin-top:4px;text-align:right"></div>
+          <div id="pv-presup-note" style="display:none;font-size:.68rem;color:var(--red);margin-top:4px;font-style:italic">* Algunos ítems requieren cotización de precio.</div>
+          <div class="pdf-sec">Forma de pago</div>
+          <div class="pdf-pago-tag" id="pv-pago">Tarjeta crédito/débito</div>
+          <div class="pdf-foot">Alvez Electricidad — Válido 15 días desde emisión</div>
+        </div>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ CALCULADORA ══════════ -->
+  <div class="page" id="page-calculadora">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Calculadora de materiales</div><div class="sec-sub">Estimá cuánto material necesitás para tu proyecto — 100% gratis</div></div>
+    <div class="gap-sm"></div>
+    <div class="calc-box">
+      <div class="calc-header">
+        <div class="calc-header-ico">🧮</div>
+        <div>
+          <h3>Calculadora de instalación</h3>
+          <p>Ingresá los datos de tu proyecto y obtené una estimación de materiales</p>
+        </div>
+      </div>
+      <div class="calc-body">
+        <div class="calc-grid">
+          <div class="calc-field"><label>Tipo de proyecto</label>
+            <select id="calc-tipo">
+              <option value="residencial">Residencial (casa/depto)</option>
+              <option value="comercial">Comercial (local/oficina)</option>
+              <option value="industrial">Industrial/taller</option>
+            </select>
+          </div>
+          <div class="calc-field"><label>Superficie (m²)</label><input id="calc-m2" type="number" placeholder="Ej: 60" min="1"/></div>
+          <div class="calc-field"><label>N° de habitaciones / ambientes</label><input id="calc-amb" type="number" placeholder="Ej: 3" min="1"/></div>
+          <div class="calc-field"><label>N° de circuitos eléctricos</label><input id="calc-circ" type="number" placeholder="Ej: 4" min="1"/></div>
+          <div class="calc-field"><label>Tomacorrientes estimados</label><input id="calc-tomas" type="number" placeholder="Ej: 12" min="1"/></div>
+          <div class="calc-field"><label>Llaves de luz estimadas</label><input id="calc-llaves" type="number" placeholder="Ej: 8" min="1"/></div>
+        </div>
+        <button class="btn-calc" onclick="calcular()">🧮 Calcular materiales</button>
+        <div class="calc-result" id="calc-result">
+          <h4>📋 Estimación de materiales</h4>
+          <div class="calc-result-grid" id="calc-result-grid"></div>
+          <p style="margin-top:14px;font-size:.8rem;color:var(--mid)">* Estimación orientativa. Te recomendamos consultarnos para una cotización exacta.</p>
+          <button class="btn-calc" style="margin-top:14px;background:var(--red)" onclick="sendCalcToWhatsapp()">💬 Enviar estimación por WhatsApp</button>
+        </div>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ NOSOTROS ══════════ -->
+  <div class="page" id="page-nosotros">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Quiénes somos</div><div class="sec-sub">Conocé más sobre Alvez Electricidad</div></div>
+    <div class="gap-sm"></div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>⚡ Nuestra historia</h3>
+        <p>Somos un local de materiales eléctricos con más de 10 años en el mercado. Nos especializamos en la venta de cables, cajas, llaves, tomacorrientes y todo tipo de materiales para instalaciones eléctricas residenciales, comerciales e industriales.</p>
+        <p style="margin-top:10px">Nuestro diferencial es el asesoramiento técnico personalizado que incluimos en cada venta, sin costo adicional.</p>
+        <div class="about-values">
+          <div class="about-val"><div class="about-val-ico">✅</div><div class="about-val-text"><strong>Stock permanente</strong><span>Más de 500 productos disponibles</span></div></div>
+          <div class="about-val"><div class="about-val-ico">💡</div><div class="about-val-text"><strong>Asesoramiento gratuito</strong><span>Te guiamos en cada compra</span></div></div>
+          <div class="about-val"><div class="about-val-ico">🔖</div><div class="about-val-text"><strong>Marcas reconocidas</strong><span>Argenplas, Jeluz y más</span></div></div>
+          <div class="about-val"><div class="about-val-ico">🏷️</div><div class="about-val-text"><strong>Precios mayoristas</strong><span>Para electricistas y empresas</span></div></div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>📍 Dónde encontrarnos</h3>
+        <div class="contact-list">
+          <div class="contact-row"><div class="contact-row-ico">📍</div><div class="contact-row-info"><strong>San Lorenzo 109 Este</strong><span>Dirección del local</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">🕐</div><div class="contact-row-info"><strong>Lunes a Viernes: 8:00 – 18:00 hs</strong><span>Sábados: 8:00 – 13:00 hs</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">📱</div><div class="contact-row-info"><strong>345 407-9486</strong><span>WhatsApp disponible</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">✉️</div><div class="contact-row-info"><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d59fbaa6b0b8b4a7bcb4b4b9a3b0af95acb4bdbabafbb6bab8fbb4a7">[email&#160;protected]</a></strong><span>Email de contacto</span></div></div>
+        </div>
+        <a href="https://wa.me/5493454079486?text=Hola!%20Quisiera%20consultar%20sobre%20materiales%20eléctricos." class="btn-wa-full" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ CONTACTO ══════════ -->
+  <div class="page" id="page-contacto">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Contacto</div><div class="sec-sub">Estamos para ayudarte — respondemos rápido</div></div>
+    <div class="gap-sm"></div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>📞 Datos de contacto</h3>
+        <div class="contact-list">
+          <div class="contact-row"><div class="contact-row-ico">📍</div><div class="contact-row-info"><strong>San Lorenzo 109 Este</strong><span>Dirección del local</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">🕐</div><div class="contact-row-info"><strong>L-V: 8:00 – 18:00 hs</strong><span>Sáb: 8:00 – 13:00 hs</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">📱</div><div class="contact-row-info"><strong>345 407-9486</strong><span>WhatsApp</span></div></div>
+          <div class="contact-row"><div class="contact-row-ico">✉️</div><div class="contact-row-info"><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="377d5844525a56455e56565b41524d774e565f58581954585a195645">[email&#160;protected]</a></strong><span>Email</span></div></div>
+        </div>
+        <a href="https://wa.me/5493454079486?text=Hola!%20Quisiera%20consultar%20sobre%20materiales%20eléctricos." class="btn-wa-full" target="_blank">💬 Escribir por WhatsApp</a>
+      </div>
+      <div class="about-card">
+        <h3>🧮 Herramientas rápidas</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+          <button onclick="goPage('presupuesto')" style="display:flex;align-items:center;gap:12px;background:rgba(27,43,173,.07);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;width:100%;text-align:left" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:40px;height:40px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">📋</div>
+            <div><strong style="display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--blue)">Armar presupuesto</strong><span style="font-size:.78rem;color:var(--mid)">Elegí materiales y enviá el PDF</span></div>
+          </button>
+          <button onclick="goPage('calculadora')" style="display:flex;align-items:center;gap:12px;background:rgba(204,10,10,.05);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;width:100%;text-align:left" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:40px;height:40px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🧮</div>
+            <div><strong style="display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--red)">Calculadora de materiales</strong><span style="font-size:.78rem;color:var(--mid)">Estimá cuánto necesitás — gratis</span></div>
+          </button>
+          <button onclick="goPage('catalogo')" style="display:flex;align-items:center;gap:12px;background:rgba(27,43,173,.04);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;width:100%;text-align:left" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:40px;height:40px;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">📦</div>
+            <div><strong style="display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--dark)">Ver catálogo completo</strong><span style="font-size:.78rem;color:var(--mid)">Todos los productos disponibles</span></div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ COMPRA ══════════ -->
+  <div class="page" id="page-compra">
+    <div class="gap"></div>
+    <!-- Banner resultado de pago (se muestra al volver de MP) -->
+    <div class="pago-result exitoso" id="pago-exitoso">
+      <h3>✅ ¡Pago aprobado!</h3>
+      <p>Tu pago fue procesado correctamente. Pronto nos ponemos en contacto para coordinar la entrega.<br>Ante cualquier consulta escribinos al <strong>345 407-9486</strong>.</p>
+    </div>
+    <div class="pago-result fallido" id="pago-fallido">
+      <h3>❌ El pago no se completó</h3>
+      <p>Hubo un problema con tu pago. Podés intentarlo de nuevo o contactarnos por WhatsApp al <strong>345 407-9486</strong>.</p>
+    </div>
+    <div class="pago-result pendiente" id="pago-pendiente">
+      <h3>⏳ Pago pendiente</h3>
+      <p>Tu pago está siendo procesado. Te avisaremos cuando se confirme. Podés consultar el estado en tu cuenta de Mercado Pago.</p>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Realizar compra</div>
+      <div class="sec-sub">Completá tus datos, elegí cómo recibir tu pedido y confirmá</div>
+    </div>
+    <div class="gap-sm"></div>
+    <div class="compra-layout">
+
+      <!-- FORMULARIO -->
+      <div class="compra-form">
+
+        <!-- Info carrito vacío -->
+        <div id="compra-empty-notice" style="display:none;background:rgba(204,10,10,.06);border:1.5px dashed var(--red);border-radius:10px;padding:18px;text-align:center;margin-bottom:20px">
+          <div style="font-size:2rem;margin-bottom:8px">🛒</div>
+          <strong style="font-family:'Barlow Condensed',sans-serif;color:var(--red)">Tu carrito está vacío</strong>
+          <p style="font-size:.82rem;color:var(--mid);margin-top:6px">Antes de comprar, agregá productos desde el <button onclick="goPage('catalogo')" style="background:none;border:none;color:var(--blue);font-weight:700;cursor:pointer;text-decoration:underline">catálogo</button>.</p>
+        </div>
+
+        <div class="form-section">Datos del comprador</div>
+        <div class="field-row">
+          <div class="field-g"><label>Nombre completo *</label><input id="co-nombre" type="text" placeholder="Juan Pérez" oninput="orderUpdate()"/></div>
+          <div class="field-g"><label>DNI</label><input id="co-dni" type="text" placeholder="30123456" oninput="orderUpdate()"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field-g"><label>Teléfono *</label><input id="co-tel" type="tel" placeholder="345 123-4567" oninput="orderUpdate()"/></div>
+          <div class="field-g"><label>Email</label><input id="co-email" type="email" placeholder="correo@ejemplo.com" oninput="orderUpdate()"/></div>
+        </div>
+
+        <div class="form-section">Método de entrega</div>
+        <div class="retiro-selector">
+          <div class="retiro-opt selected" id="opt-local" onclick="selectRetiro('local')">
+            <div class="retiro-ico">🏪</div>
+            <div class="retiro-title">Retiro en local</div>
+            <div class="retiro-sub">San Lorenzo 109 Este<br>L–V 8–18 hs · Sáb 8–13 hs</div>
+          </div>
+          <div class="retiro-opt" id="opt-envio" onclick="selectRetiro('envio')">
+            <div class="retiro-ico">🚚</div>
+            <div class="retiro-title">Envío a domicilio</div>
+            <div class="retiro-sub">Costo por zona<br>Desde $3.000</div>
+          </div>
+        </div>
+
+        <!-- Campos de envío (se muestran solo si eligen envío) -->
+        <div class="envio-fields" id="envio-fields">
+          <div class="envio-notice">🚚 Completá los datos para el envío</div>
+
+          <div class="field-g" style="margin-bottom:14px">
+            <label>Barrio / Localidad *</label>
+            <select id="co-barrio" onchange="onBarrioChange()">
+              <option value="">— Seleccioná tu barrio —</option>
+              <optgroup label="── Zona 1 · $3.000 (hasta 1 km) ──">
+                <option value="Centro|3000|1">Centro</option>
+                <option value="Puerto|3000|1">Puerto</option>
+                <option value="Constitución|3000|1">Constitución</option>
+              </optgroup>
+              <optgroup label="── Zona 2 · $3.000 (1,5–2,5 km) ──">
+                <option value="Lezca|3000|2">Lezca</option>
+                <option value="Nebel|3000|2">Nebel</option>
+                <option value="Pompeya Norte|3000|2">Pompeya Norte</option>
+                <option value="25 de Mayo|3000|2">25 de Mayo</option>
+                <option value="Pompeya Sur|3000|2">Pompeya Sur</option>
+              </optgroup>
+              <optgroup label="── Zona 3 · $3.000 (3–4 km) ──">
+                <option value="Parque San Carlos|3000|3">Parque San Carlos</option>
+                <option value="José Hernández|3000|3">José Hernández</option>
+                <option value="Golf|3000|3">Golf</option>
+                <option value="Capricornio|3000|3">Capricornio</option>
+              </optgroup>
+              <optgroup label="── Zona 4 · $6.000 (4–6 km) ──">
+                <option value="Tavella|6000|4">Tavella</option>
+                <option value="Benito Legerén|6000|4">Benito Legerén</option>
+                <option value="Agua Patito|6000|4">Agua Patito</option>
+                <option value="Salto Chico|6000|4">Salto Chico</option>
+              </optgroup>
+              <optgroup label="── Zona 5 · $6.000 (6–8 km) ──">
+                <option value="La Bianca|6000|5">La Bianca</option>
+                <option value="Termal|6000|5">Termal</option>
+                <option value="Villa Zorraquín|6000|5">Villa Zorraquín</option>
+              </optgroup>
+              <optgroup label="── Zona 6 · $6.000 (10–12 km) ──">
+                <option value="Osvaldo Magnasco|6000|6">Osvaldo Magnasco</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Chip de costo de envío (aparece al elegir barrio) -->
+          <div id="envio-costo-chip" style="display:none;margin-bottom:12px">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(27,43,173,.08);border:1.5px solid var(--blue);border-radius:8px;padding:8px 14px">
+              <span style="font-size:1.1rem">🚚</span>
+              <div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)">Costo de envío</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--blue)" id="envio-costo-valor">$0</div>
+              </div>
+              <div style="font-size:.68rem;color:var(--mid);border-left:1px solid var(--border);padding-left:10px" id="envio-zona-label">Zona 1</div>
+            </div>
+          </div>
+
+          <div class="field-g"><label>Dirección de entrega *</label><input id="co-dir" type="text" placeholder="Av. San Martín 456, Piso 2" oninput="orderUpdate()"/></div>
+          <div class="field-g"><label>Referencias / Indicaciones</label><input id="co-ref" type="text" placeholder="Portón verde, timbre 2B..." oninput="orderUpdate()"/></div>
+        </div>
+
+        <div class="form-section">Forma de pago</div>
+        <div class="pago-compra-row">
+          <input type="radio" name="pago-compra" id="pc1" class="pago-compra-radio" value="Efectivo" onchange="orderUpdate()" checked/>
+          <label for="pc1">💵 Efectivo<span class="pago-recargo-tag" style="background:rgba(37,160,80,.15);color:#1a8a3a">Sin recargo</span></label>
+          <input type="radio" name="pago-compra" id="pc2" class="pago-compra-radio" value="Débito / Transferencia" onchange="orderUpdate()"/>
+          <label for="pc2">💳 Débito / Transf.<span class="pago-recargo-tag">+15%</span></label>
+          <input type="radio" name="pago-compra" id="pc3" class="pago-compra-radio" value="Tarjeta de crédito" onchange="orderUpdate()"/>
+          <label for="pc3">🏦 Crédito<span class="pago-recargo-tag">+21% +15%</span></label>
+        </div>
+        <div id="recargo-info-box" style="display:none;margin-top:10px;background:rgba(27,43,173,.06);border:1.5px solid rgba(27,43,173,.2);border-radius:8px;padding:10px 14px;font-size:.78rem;color:var(--dark);line-height:1.5"></div>
+        <p style="font-size:.72rem;color:var(--mid);margin-top:6px;margin-bottom:4px">El pago se realiza al retirar o al recibir el pedido (según método de entrega elegido).</p>
+
+        <div class="form-section">Observaciones</div>
+        <div class="field-g">
+          <label>Comentarios adicionales (opcional)</label>
+          <input id="co-obs" type="text" placeholder="Ej: necesito los rollos sin cortes, entrega urgente..." oninput="orderUpdate()"/>
+        </div>
+
+        <div class="order-btns">
+          <button class="btn-order-dl" onclick="generateOrder(false)">📄 Descargar orden</button>
+          <button class="btn-order-wa" onclick="generateOrder(true)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Orden + WhatsApp
+          </button>
+        </div>
+
+        <!-- Separador pago online -->
+        <div class="mp-separator" id="mp-separator">o pagá ahora online</div>
+        <button class="btn-pagar-mp" id="btn-pagar-mp" onclick="pagarConMP()">
+          <span style="font-size:1.3rem">💳</span> Pagar con Mercado Pago
+        </button>
+        <div class="efectivo-notice" id="efectivo-notice">
+          💵 Elegiste <strong>Efectivo</strong> — el pago se realiza al retirar o recibir el pedido. Podés descargar o enviar la orden por WhatsApp para confirmar tu pedido.
+        </div>
+      </div>
+
+      <!-- RESUMEN DEL PEDIDO -->
+      <div class="compra-summary">
+        <span class="order-preview-label">Resumen del pedido</span>
+        <div class="order-card">
+          <div class="order-card-title">Productos del carrito</div>
+          <div id="order-items-list"><div class="order-empty">Sin productos aún.<br><button onclick="goPage('catalogo')" style="background:none;border:none;color:var(--blue);font-weight:700;cursor:pointer;font-size:.82rem;margin-top:4px;text-decoration:underline">Ir al catálogo →</button></div></div>
+          <div class="order-total-block" id="order-total-block">
+            <div class="order-total-line"><span>Subtotal productos</span><span id="op-subtotal">$0,00</span></div>
+            <div class="order-total-line" id="op-envio-row"><span id="op-envio-label">Envío</span><span id="op-envio-cost">Retiro en local</span></div>
+            <div class="order-total-line recargo" id="op-recargo-row" style="display:none"><span id="op-recargo-label">Recargo</span><span id="op-recargo-cost">$0,00</span></div>
+            <div class="order-total-line big"><span>TOTAL</span><span id="op-total">$0,00</span></div>
+          </div>
+        </div>
+
+        <!-- Vista previa orden -->
+        <span class="order-preview-label">Vista previa de la orden</span>
+        <div class="opdf">
+          <div class="opdf-header">
+            <div>
+              <div class="opdf-logo">⚡ Alvez <span>Electricidad</span></div>
+              <div style="font-size:.62rem;color:var(--mid);margin-top:2px">ORDEN DE COMPRA</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.6rem;color:var(--mid)">Orden</div>
+              <div class="opdf-num" id="op-num">N° 1</div>
+              <div style="font-size:.68rem;color:var(--mid)" id="op-fecha">—</div>
+            </div>
+          </div>
+          <div class="opdf-sec">Comprador</div>
+          <div style="background:#fff;border-radius:6px;padding:8px 10px;font-size:.78rem;line-height:1.8">
+            <div><span style="color:var(--mid)">Nombre: </span><strong id="op-nombre">—</strong></div>
+            <div><span style="color:var(--mid)">Teléfono: </span><span id="op-tel">—</span></div>
+            <div><span style="color:var(--mid)">Email: </span><span id="op-email">—</span></div>
+          </div>
+          <div class="opdf-sec">Entrega</div>
+          <div id="op-entrega-preview" style="font-size:.78rem;line-height:1.6;background:#fff;border-radius:6px;padding:8px 10px"></div>
+          <div class="opdf-sec">Productos</div>
+          <table class="opdf-table"><thead><tr><th>#</th><th>Producto</th><th>Cant.</th><th>Precio</th></tr></thead>
+          <tbody id="op-tbody"><tr><td colspan="4" style="color:var(--mid);font-size:.72rem;padding:.4rem">Sin productos.</td></tr></tbody></table>
+          <div class="opdf-sec">Pago</div>
+          <div class="opdf-badge" id="op-pago-badge">Efectivo</div>
+          <div style="font-size:.62rem;color:var(--mid);text-align:center;border-top:1px solid var(--border);padding-top:8px;margin-top:12px">Alvez Electricidad — Válido por 15 días</div>
+        </div>
+
+        <!-- Boton desde carrito -->
+        <button class="cart-to-order-btn" onclick="cartToOrder()">🛒 Cargar productos del carrito</button>
+      </div>
+
+    </div>
+    <div class="gap"></div>
+  </div>
+
+  <!-- ══════════ IMPORTAR PRECIOS ══════════ -->
+  <div class="page" id="page-importar">
+    <div class="gap"></div>
+    <div class="sec"><div class="sec-title">Importar precios desde Excel</div><div class="sec-sub">Actualizá stock y precios propios desde una planilla</div></div>
+    <div class="gap-sm"></div>
+
+    <!-- Instrucciones formato -->
+    <div class="import-box" style="margin-bottom:20px">
+      <div class="import-header">
+        <div class="import-header-ico">📊</div>
+        <div><h3>Formato esperado del archivo</h3><p>El Excel debe tener al menos estas 3 columnas (en cualquier orden)</p></div>
+      </div>
+      <div class="import-body">
+        <div class="import-help">
+          <h4>📋 Columnas del archivo</h4>
+          <div class="import-help-cols" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr))">
+            <div class="import-col-item">
+              <div class="col-name">CODIGO</div>
+              <div class="col-desc">Código / SKU</div>
+              <div class="col-eg">Ej: CAB-UNI-25</div>
+            </div>
+            <div class="import-col-item">
+              <div class="col-name">NOMBRE</div>
+              <div class="col-desc">Descripción</div>
+              <div class="col-eg">Ej: Cable 2.5mm</div>
+            </div>
+            <div class="import-col-item">
+              <div class="col-name">CATEGORIA</div>
+              <div class="col-desc">Categoría (opcional)</div>
+              <div class="col-eg">Ej: cables</div>
+            </div>
+            <div class="import-col-item">
+              <div class="col-name">STOCK</div>
+              <div class="col-desc">Cantidad disponible</div>
+              <div class="col-eg">Ej: 150</div>
+            </div>
+            <div class="import-col-item">
+              <div class="col-name">PRECIO</div>
+              <div class="col-desc">Precio unitario ($)</div>
+              <div class="col-eg">Ej: 8500</div>
+            </div>
+          </div>
+          <p style="font-size:.78rem;color:var(--mid);line-height:1.6;margin-top:10px">
+            Los nombres no distinguen mayúsculas/minúsculas. Si el producto ya existe en el catálogo (mismo SKU), se actualiza su precio/stock. Si es nuevo, se agrega en su categoría con botón de carrito. Categorías válidas: <strong>cables, cajas, estancas, jeluz, modulos</strong> — cualquier otro valor crea una categoría nueva.
+          </p>
+          <button onclick="downloadTemplate()" style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:#1a7a3c;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;padding:.5rem 1.1rem;border-radius:6px;border:none;cursor:pointer;transition:background .2s" onmouseover="this.style.background='#155c2f'" onmouseout="this.style.background='#1a7a3c'">
+            ⬇️ Descargar plantilla de ejemplo
+          </button>
+        </div>
+
+        <!-- Drop zone -->
+        <div class="drop-zone" id="drop-zone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)" onclick="document.getElementById('file-input-xl').click()">
+          <div class="drop-zone-ico" id="dz-ico">📂</div>
+          <div class="drop-zone-title" id="dz-title">Arrastrá tu archivo Excel aquí</div>
+          <div class="drop-zone-sub" id="dz-sub">o hacé clic para buscar · .xlsx, .xls o .csv</div>
+          <button class="btn-import-file">📁 Seleccionar archivo</button>
+          <input type="file" id="file-input-xl" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelFile(this.files[0])"/>
+        </div>
+
+        <!-- Status -->
+        <div class="import-status" id="import-status"></div>
+
+        <!-- Summary cards -->
+        <div class="import-summary-cards" id="import-summary" style="display:none">
+          <div class="import-sum-card"><div class="n" id="imp-total">0</div><div class="l">Filas leídas</div></div>
+          <div class="import-sum-card green"><div class="n" id="imp-ok">0</div><div class="l">Con precio</div></div>
+          <div class="import-sum-card orange"><div class="n" id="imp-nostock">0</div><div class="l">Sin stock</div></div>
+          <div class="import-sum-card red"><div class="n" id="imp-noname">0</div><div class="l">Sin código</div></div>
+        </div>
+
+        <!-- Preview table -->
+        <div id="import-preview" style="display:none">
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;color:var(--blue);margin-bottom:10px">Vista previa de datos importados</h4>
+          <div class="import-table-wrap">
+            <table class="import-table">
+              <thead><tr id="import-thead"></tr></thead>
+              <tbody id="import-tbody"></tbody>
+            </table>
+          </div>
+          <button class="btn-apply-import" onclick="applyImport()">✅ Aplicar precios y stock al catálogo</button>
+          <button class="btn-clear-import" onclick="clearImport()">🗑️ Limpiar importación</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Precios activos -->
+    <div class="import-box" id="active-prices-box" style="display:none;margin-bottom:20px">
+      <div class="import-header" style="background:linear-gradient(135deg,var(--blue) 0%,var(--blue2) 100%)">
+        <div class="import-header-ico">✅</div>
+        <div><h3>Precios importados activos</h3><p>Estos precios ya están aplicados al catálogo</p></div>
+      </div>
+      <div class="import-body">
+        <div class="import-table-wrap">
+          <table class="import-table">
+            <thead><tr>
+              <th>Código</th><th>Nombre / Descripción</th><th>Stock</th><th>Precio importado</th>
+            </tr></thead>
+            <tbody id="active-prices-tbody"></tbody>
+          </table>
+        </div>
+        <button class="btn-clear-import" onclick="clearAllPrices()">🗑️ Eliminar todos los precios importados</button>
+      </div>
+    </div>
+
+    <div class="gap"></div>
+  </div>
+
+</main>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+
+<!-- CART FLOAT BUTTON -->
+<button class="cart-btn-float" onclick="toggleCart()" title="Ver carrito" style="position:relative">
+  🛒
+  <span class="cart-badge" id="cart-badge">0</span>
+</button>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-head">
+    <h3>🛒 Carrito de compra</h3>
+    <button class="cart-drawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cart-drawer-body">
+    <div class="cart-empty"><span class="ico">🛒</span>Tu carrito está vacío.<br>Agregá productos con precio fijo desde el catálogo.</div>
+  </div>
+  <div class="cart-drawer-foot">
+    <div class="cart-note" id="cart-quote-note" style="display:none">⚠️ Algunos productos (cantidades fraccionadas) requieren presupuesto.</div>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total estimado</span>
+      <span class="cart-total-amount" id="cart-total">$0</span>
+    </div>
+    <button class="btn-cart-presupuesto" onclick="cartToPresupuesto()">📋 Enviar al presupuesto</button>
+    <button class="btn-cart-presupuesto" onclick="cartToOrderPage()" style="background:var(--red);margin-top:6px">🛒 Ir a comprar</button>
+    <button class="btn-cart-wa" onclick="cartToWhatsapp()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Consultar por WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav">
+  <button class="bn-item active" id="bn-inicio" onclick="goPage('inicio')"><span class="bni">🏠</span>Inicio</button>
+  <button class="bn-item" id="bn-catalogo" onclick="goPage('catalogo')"><span class="bni">📦</span>Catálogo</button>
+  <button class="bn-item" id="bn-compra" onclick="goPage('compra')" style="color:var(--red)"><span class="bni">🛒</span>Comprar</button>
+  <button class="bn-item" id="bn-presupuesto" onclick="goPage('presupuesto')"><span class="bni">📋</span>Presupuesto</button>
+  <button class="bn-item" id="bn-calculadora" onclick="goPage('calculadora')"><span class="bni">🧮</span>Calculadora</button>
+</nav>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- Navegación cargada antes que las librerías externas para que los botones funcionen siempre -->
+<script>
+const pages=['inicio','catalogo','presupuesto','calculadora','nosotros','contacto','compra','importar'];
+function goPage(id){
+  // Protección: la página importar solo es accesible para el admin
+  if(id==='importar' && (typeof isAdmin !== 'function' || !isAdmin())){
+    return; // silencioso — el botón ni aparece, pero por seguridad bloqueamos aquí también
+  }
+  pages.forEach(p=>{
+    const pg=document.getElementById('page-'+p);
+    if(pg) pg.classList.toggle('active',p===id);
+    const nl=document.getElementById('nav-'+p);
+    if(nl) nl.classList.toggle('active',p===id);
+    const bl=document.getElementById('bn-'+p);
+    if(bl) bl.classList.toggle('active',p===id);
+  });
+  window.scrollTo(0,0);
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function filterCat(cat,el){
+  document.querySelectorAll('#cat-filter-grid .cat-card').forEach(c=>c.classList.remove('active-cat'));
+  if(el) el.classList.add('active-cat');
+  document.querySelectorAll('#all-products .prod-card').forEach(c=>{
+    c.style.display=(cat==='todos'||c.dataset.cat===cat)?'':'none';
+  });
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ── VARIANTS ──
+const variants={
+  'Cable Unipolar|Cableado':['1×1.00 mm','1×1.50 mm','1×2.50 mm','1×4.00 mm','1×6.00 mm'],
+  'Cable Taller 2 conductores|Cableado':['2×1.00 mm','2×1.50 mm','2×2.50 mm','2×4.00 mm','2×6.00 mm'],
+  'Cable Taller 3 conductores|Cableado':['3×1.00 mm','3×1.50 mm','3×2.50 mm','3×4.00 mm','3×6.00 mm'],
+  'Cable Taller 4 conductores|Cableado':['4×1.00 mm','4×1.50 mm','4×2.50 mm','4×4.00 mm','4×6.00 mm'],
+  'Cable Taller 5 conductores|Cableado':['5×1.00 mm','5×1.50 mm','5×2.50 mm','5×4.00 mm','5×6.00 mm'],
+  'Cable Subterráneo|Cableado':['2×1.00 mm','2×1.50 mm','2×2.50 mm','3×2.50 mm','4×4.00 mm','5×6.00 mm'],
+  'Caja Rect. y Octogonal|Cajas instalación':['Chapa 20'],
+  'Caja Mignon|Cajas instalación':['Chapa 20'],
+  'Caja Rect. Profunda|Cajas instalación':['Chapa 20'],
+  'Caja 10×10|Cajas instalación':['Chapa 20'],
+  'Caja Octogonal Grande|Cajas instalación':['Chapa 20'],
+  'Caja Estanca IP65|Cajas estancas':['90×90×55 mm','115×65×55 mm','160×100×65 mm','31×31×160 mm'],
+  'Bastidor 3 módulos|Jeluz Verona':['—'],'Tapa Blanca 3 módulos|Jeluz Verona':['—'],
+  'Porta Módulo Exterior|Jeluz Verona':['—'],'Base Exterior Simple|Jeluz Verona':['—'],
+  'Base Exterior Doble|Jeluz Verona':['—'],'Base Exterior Triple|Jeluz Verona':['—'],
+  'Módulo Toma 10A|Jeluz Verona':['10 amperes'],'Módulo Toma 20A|Jeluz Verona':['20 amperes'],
+  'Módulo Punto (Llave)|Jeluz Verona':['10 amperes'],'Módulo Punto Timbre|Jeluz Verona':['10 amperes'],
+  'Módulo Ciego|Jeluz Verona':['—'],
+};
+function updateVariants(){
+  const k=document.getElementById('sel-prod').value;
+  const vs=variants[k]||['—'];
+  document.getElementById('sel-variant').innerHTML=vs.map(v=>`<option>${v}</option>`).join('');
+}
+updateVariants();
+
+// ── CART ──
+let cartItems=[];let cartSeq=0;
+function toggleCart(){document.getElementById('cart-drawer').classList.toggle('open');document.getElementById('cart-overlay').classList.toggle('show');}
+function closeCart(){document.getElementById('cart-drawer').classList.remove('open');document.getElementById('cart-overlay').classList.remove('show');}
+function addToCart(nom,cat,variant,price,unitLabel,unitQty){
+  const existing=cartItems.find(i=>i.nom===nom&&i.variant===variant);
+  if(existing){existing.qty++;renderCart();
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('show');
+    return;
+  }
+  cartItems.push({id:++cartSeq,nom,cat,variant,price,unitLabel,unitQty,qty:1});
+  renderCart();
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('show');
+}
+function addToBudgetFromCat(nom,cat,variant){
+  addToBudget(nom,cat,variant,'A cotizar');
+}
+function cartQty(id,delta){
+  const item=cartItems.find(i=>i.id===id);if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0)cartItems=cartItems.filter(i=>i.id!==id);
+  renderCart();
+}
+function removeFromCart(id){cartItems=cartItems.filter(i=>i.id!==id);renderCart();}
+function fmtPrice(n){return'$'+n.toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function renderCart(){
+  const body=document.getElementById('cart-drawer-body');
+  const badge=document.getElementById('cart-badge');
+  const total=cartItems.reduce((s,i)=>s+i.price*i.qty,0);
+  const count=cartItems.reduce((s,i)=>s+i.qty,0);
+  badge.textContent=count;badge.classList.toggle('show',count>0);
+  document.getElementById('cart-total').textContent=fmtPrice(total);
+  if(!cartItems.length){
+    body.innerHTML='<div class="cart-empty"><span class="ico">🛒</span>Tu carrito está vacío.<br>Agregá productos con precio fijo desde el catálogo.</div>';
+    return;
+  }
+  body.innerHTML=cartItems.map(it=>`
+    <div class="cart-item">
+      <div class="cart-item-name">${it.nom}</div>
+      <div class="cart-item-variant">${it.variant} · ${it.unitLabel}</div>
+      <div class="cart-item-row">
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" onclick="cartQty(${it.id},-1)">−</button>
+          <span class="cart-qty-num">${it.qty}</span>
+          <button class="cart-qty-btn" onclick="cartQty(${it.id},1)">+</button>
+        </div>
+        <div>
+          <div class="cart-item-price">${fmtPrice(it.price*it.qty)}</div>
+          <div class="cart-item-unit">${fmtPrice(it.price)} c/u</div>
+        </div>
+        <button class="cart-item-del" onclick="removeFromCart(${it.id})">✕</button>
+      </div>
+    </div>`).join('');
+}
+function cartToPresupuesto(){
+  cartItems.forEach(ci=>{
+    const desc=ci.variant&&ci.variant!=='—'?`${ci.nom} (${ci.variant})`:ci.nom;
+    budgetItems.push({id:++itemSeq,cat:ci.cat,nom:ci.nom,variant:ci.variant,qty:`${ci.unitLabel} ×${ci.qty}`,desc,price:ci.price*ci.qty,hasPrice:true});
+  });
+  renderItems();pvUpdate();closeCart();goPage('presupuesto');
+}
+function cartToWhatsapp(){
+  if(!cartItems.length)return;
+  const total=cartItems.reduce((s,i)=>s+i.price*i.qty,0);
+  const lista=cartItems.map(i=>`• ${i.nom} (${i.variant}) — ${i.unitLabel} ×${i.qty} = ${fmtPrice(i.price*i.qty)}`).join('\n');
+  const texto=encodeURIComponent(`Hola Alvez Electricidad! Quiero consultar por estos productos:\n\n${lista}\n\nTotal estimado: ${fmtPrice(total)}`);
+  window.open(`https://wa.me/5493454079486?text=${texto}`,'_blank');
+}
+
+// ── BUDGET ITEMS ──
+let budgetItems=[];let itemSeq=0;let numPed=1;
+function addItem(){
+  const k=document.getElementById('sel-prod').value;
+  const[nom,cat]=k.split('|');
+  const variant=document.getElementById('sel-variant').value;
+  const qty=document.getElementById('inp-qty').value.trim()||'1';
+  const desc=variant&&variant!=='—'?`${nom} (${variant})`:nom;
+  budgetItems.push({id:++itemSeq,cat,nom,variant,qty,desc,hasPrice:false,price:0});
+  renderItems();pvUpdate();
+}
+function addToBudget(nom,cat,variant,qty){
+  const desc=variant&&variant!=='—'?`${nom} (${variant})`:nom;
+  budgetItems.push({id:++itemSeq,cat,nom,variant,qty,desc,hasPrice:false,price:0});
+  renderItems();pvUpdate();goPage('presupuesto');
+}
+function delItem(id){budgetItems=budgetItems.filter(i=>i.id!==id);renderItems();pvUpdate();}
+function renderItems(){
+  const el=document.getElementById('item-list');
+  if(!budgetItems.length){el.innerHTML='<span style="font-size:.82rem;color:var(--mid);font-style:italic;padding:8px 4px;display:block">Elegí productos del catálogo para agregarlos.</span>';return;}
+  el.innerHTML=budgetItems.map((it,i)=>`
+    <div class="item-row">
+      <span class="item-row-num">${i+1}.</span>
+      <span class="item-row-name">${it.desc} ${it.hasPrice?`<span style="font-size:.7rem;background:rgba(27,43,173,.1);color:var(--blue);border-radius:3px;padding:.1rem .4rem;font-weight:700">${fmtPrice(it.price)}</span>`:'<span style="font-size:.7rem;color:var(--red);font-style:italic">A cotizar</span>'}</span>
+      <span class="item-row-qty">${it.qty}</span>
+      <button class="btn-del-item" onclick="delItem(${it.id})">✕</button>
+    </div>`).join('');
+}
+
+// ── PREVIEW ──
+function hoy(){const d=new Date();return`${String(d.getDate()).padStart(2,'0')} de ${['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][d.getMonth()]} de ${d.getFullYear()}`}
+function getPago(){const s=document.querySelector('input[name="pago"]:checked');return s?s.value:'—'}
+function pvUpdate(){
+  document.getElementById('pv-nombre').textContent=document.getElementById('f-nombre').value||'—';
+  document.getElementById('pv-dni').textContent=document.getElementById('f-dni').value||'—';
+  document.getElementById('pv-dir').textContent=document.getElementById('f-dir').value||'—';
+  document.getElementById('pv-tel').textContent=document.getElementById('f-tel').value||'—';
+  document.getElementById('pv-pago').textContent=getPago();
+  const hasQuote=budgetItems.some(i=>!i.hasPrice);
+  const totalPriced=budgetItems.filter(i=>i.hasPrice).reduce((s,i)=>s+i.price,0);
+  const recInfo=getRecargoInfo(getPago());
+  const recargoMonto=recInfo?Math.round(totalPriced*recInfo.pct):0;
+  document.getElementById('pv-tbody').innerHTML=budgetItems.length===0
+    ?'<tr><td colspan="5" style="color:var(--mid);font-size:.75rem;padding:.5rem .4rem">Sin materiales aún.</td></tr>'
+    :budgetItems.map((it,i)=>`<tr><td>${i+1}</td><td style="font-size:.65rem">${it.cat.substring(0,18)}</td><td>${it.desc.substring(0,26)}</td><td>${it.qty}</td><td style="font-size:.72rem;font-weight:700;color:${it.hasPrice?'var(--blue)':'var(--red)'}">${it.hasPrice?fmtPrice(it.price):'Cotizar'}</td></tr>`).join('');
+  const totalRow=document.getElementById('pv-total-row');
+  const presupNote=document.getElementById('pv-presup-note');
+  const recargoRow=document.getElementById('pv-recargo-row');
+  if(budgetItems.length){
+    totalRow.style.display='block';
+    const totalConRecargo=totalPriced+recargoMonto;
+    document.getElementById('pv-total').textContent=fmtPrice(totalConRecargo)+(hasQuote?' + cotización':'');
+    presupNote.style.display=hasQuote?'block':'none';
+    if(recInfo&&recargoMonto>0&&recargoRow){
+      recargoRow.style.display='block';
+      recargoRow.innerHTML=`<span style="font-size:.7rem;color:var(--red)">Recargo ${recInfo.label}: </span><strong style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;color:var(--red)">+${fmtPrice(recargoMonto)}</strong>`;
+    } else if(recargoRow){ recargoRow.style.display='none'; }
+  } else {totalRow.style.display='none';presupNote.style.display='none';if(recargoRow)recargoRow.style.display='none';}
+}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('pv-fecha').textContent=hoy();pvUpdate();});
+
+// ── GENERATE PDF ──
+function generatePDF(sendWa){
+  const nombre=document.getElementById('f-nombre').value.trim();
+  if(!nombre){alert('Por favor ingresá tu nombre.');return;}
+  const dni=document.getElementById('f-dni').value.trim(),dir=document.getElementById('f-dir').value.trim(),tel=document.getElementById('f-tel').value.trim(),pago=getPago();
+  const recInfo=getRecargoInfo(pago);
+  const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'p',unit:'mm',format:'a4'});
+  const W=210,pad=18;
+  doc.setFillColor(27,43,173);doc.rect(0,0,W,38,'F');
+  doc.setFillColor(204,10,10);doc.rect(0,38,W,4,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text('Alvez Electricidad',pad,18);
+  doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('FICHA DE PEDIDO OFICIAL',pad,26);
+  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('N° '+numPed,W-pad,18,{align:'right'});
+  doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text(hoy(),W-pad,26,{align:'right'});
+  let y=52;
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('DATOS DEL CLIENTE',pad+2,y);y+=7;
+  [['NOMBRE COMPLETO',nombre],['DNI',dni||'—'],['DIRECCIÓN',dir||'—'],['TELÉFONO',tel||'—']].forEach(([l,v])=>{
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(120,120,120);doc.text(l,pad,y);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(30,30,30);doc.text(v,pad,y+5);y+=12;
+  });
+  y+=4;
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('MATERIALES',pad+2,y);y+=6;
+  const cols={a:pad,b:pad+10,c:pad+50,d:W-pad-36,e:W-pad-2};
+  doc.setFillColor(27,43,173);doc.rect(pad,y,W-pad*2,8,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(7.5);
+  doc.text('#',cols.a+1,y+5.5);doc.text('CATEGORÍA',cols.b,y+5.5);doc.text('MATERIAL',cols.c,y+5.5);doc.text('CANT.',cols.d,y+5.5);doc.text('PRECIO',cols.e,y+5.5,{align:'right'});y+=8;
+  let totalPriced=0;let hasNonPriced=false;
+  if(!budgetItems.length){doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(150,150,150);doc.text('Sin materiales.',pad+2,y+6);y+=12;}
+  else{budgetItems.forEach((it,i)=>{const bg=i%2===0?[255,255,255]:[248,248,252];doc.setFillColor(...bg);doc.rect(pad,y,W-pad*2,8,'F');doc.setTextColor(30,30,30);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(String(i+1),cols.a+1,y+5.5);doc.text(it.cat.substring(0,18),cols.b,y+5.5);doc.text(it.desc.substring(0,26),cols.c,y+5.5);doc.text(String(it.qty).substring(0,12),cols.d,y+5.5);if(it.hasPrice){doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.text(fmtPrice(it.price),cols.e,y+5.5,{align:'right'});totalPriced+=it.price;}else{doc.setTextColor(204,10,10);doc.setFont('helvetica','italic');doc.text('A cotizar',cols.e,y+5.5,{align:'right'});hasNonPriced=true;}y+=8;});}
+  if(budgetItems.length){
+    let totalPricedFinal=0;budgetItems.forEach(it=>{if(it.hasPrice)totalPricedFinal+=it.price;});
+    const recargoMontoPDF=recInfo?Math.round(totalPricedFinal*recInfo.pct):0;
+    doc.setFillColor(27,43,173);doc.rect(pad,y,W-pad*2,9,'F');
+    doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);
+    doc.text('SUBTOTAL',cols.b,y+6);
+    doc.text(fmtPrice(totalPricedFinal)+(hasNonPriced?' + cotización':''),cols.e,y+6,{align:'right'});
+    y+=9;
+    if(recInfo&&recargoMontoPDF>0){
+      doc.setFillColor(255,248,240);doc.rect(pad,y,W-pad*2,9,'F');
+      doc.setTextColor(180,60,0);doc.setFont('helvetica','bold');doc.setFontSize(8.5);
+      doc.text(recInfo.label,cols.b,y+6);
+      doc.text('+'+fmtPrice(recargoMontoPDF),cols.e,y+6,{align:'right'});
+      y+=9;
+      doc.setFillColor(27,43,173);doc.rect(pad,y,W-pad*2,9,'F');
+      doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);
+      doc.text('TOTAL',cols.b,y+6);
+      doc.text(fmtPrice(totalPricedFinal+recargoMontoPDF)+(hasNonPriced?' + cotización':''),cols.e,y+6,{align:'right'});
+      y+=9;
+    }
+  }
+  y+=8;
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('FORMA DE PAGO',pad+2,y);y+=9;
+  doc.setFillColor(27,43,173);doc.roundedRect(pad,y-5,90,10,2,2,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text(pago,pad+4,y+1.5);
+  if(hasNonPriced){y+=16;doc.setFontSize(7.5);doc.setTextColor(160,60,60);doc.setFont('helvetica','italic');doc.text('* Ítems marcados "A cotizar" requieren confirmación de precio.',pad,y);}
+  doc.setDrawColor(204,10,10);doc.setLineWidth(.8);doc.line(pad,280,W-pad,280);
+  doc.setTextColor(130,130,130);doc.setFont('helvetica','italic');doc.setFontSize(8);doc.text('Alvez Electricidad — Válido por 15 días desde la fecha de emisión',W/2,285,{align:'center'});
+  doc.save(`Pedido_${numPed}_Alvez_Electricidad.pdf`);
+  if(sendWa){
+    const totalPricedWA=budgetItems.filter(i=>i.hasPrice).reduce((s,i)=>s+i.price,0);
+    const recargoWA=recInfo?Math.round(totalPricedWA*recInfo.pct):0;
+    const totalWA=totalPricedWA+recargoWA;
+    const texto=encodeURIComponent(
+      `Hola Alvez Electricidad! Adjunto el Pedido N°${numPed} a nombre de ${nombre}.\n`+
+      `Materiales: ${budgetItems.map(i=>`${i.desc} (${i.qty})${i.hasPrice?' '+fmtPrice(i.price):' [a cotizar]'}`).join(', ')||'—'}\n`+
+      (recInfo&&recargoWA>0?`📊 ${recInfo.label}: +${fmtPrice(recargoWA)}\n`:'')+
+      `💵 Total: ${fmtPrice(totalWA)}${hasNonPriced?' + cotización':''}\n`+
+      `💳 Pago: ${pago}\n📄 PDF del pedido adjunto.`
+    );
+    setTimeout(()=>window.open(`https://wa.me/5493454079486?text=${texto}`,'_blank'),800);
+  }
+  numPed++;
+}
+
+// ── COMPRA ──
+let orderItems=[];let orderNum=1;let retiroMode='local';
+
+// Zona data
+const ZONAS={
+  1:{nombre:'Zona 1',precio:3000,barrios:['Centro','Puerto','Constitución']},
+  2:{nombre:'Zona 2',precio:3000,barrios:['Lezca','Nebel','Pompeya Norte','25 de Mayo','Pompeya Sur']},
+  3:{nombre:'Zona 3',precio:3000,barrios:['Parque San Carlos','José Hernández','Golf','Capricornio']},
+  4:{nombre:'Zona 4',precio:6000,barrios:['Tavella','Benito Legerén','Agua Patito','Salto Chico']},
+  5:{nombre:'Zona 5',precio:6000,barrios:['La Bianca','Termal','Villa Zorraquín']},
+  6:{nombre:'Zona 6',precio:6000,barrios:['Osvaldo Magnasco']},
+};
+
+function getEnvioCosto(){
+  if(retiroMode!=='envio')return 0;
+  const sel=document.getElementById('co-barrio');
+  if(!sel||!sel.value)return null; // null = no seleccionado
+  const parts=sel.value.split('|');
+  return parseInt(parts[1])||0;
+}
+function getEnvioZona(){
+  const sel=document.getElementById('co-barrio');
+  if(!sel||!sel.value)return null;
+  const parts=sel.value.split('|');
+  return parseInt(parts[2])||null;
+}
+function getEnvioBarrio(){
+  const sel=document.getElementById('co-barrio');
+  if(!sel||!sel.value)return '';
+  return sel.value.split('|')[0];
+}
+
+function onBarrioChange(){
+  const costo=getEnvioCosto();
+  const zona=getEnvioZona();
+  const chip=document.getElementById('envio-costo-chip');
+  if(costo!==null&&zona){
+    chip.style.display='block';
+    document.getElementById('envio-costo-valor').textContent=fmtPrice(costo);
+    document.getElementById('envio-zona-label').textContent=ZONAS[zona].nombre;
+  } else {
+    chip.style.display='none';
+  }
+  orderUpdate();
+}
+
+function selectRetiro(mode){
+  retiroMode=mode;
+  document.getElementById('opt-local').classList.toggle('selected',mode==='local');
+  document.getElementById('opt-envio').classList.toggle('selected',mode==='envio');
+  document.getElementById('envio-fields').classList.toggle('show',mode==='envio');
+  orderUpdate();
+}
+
+function getOrderPago(){const s=document.querySelector('input[name="pago-compra"]:checked');return s?s.value:'Efectivo';}
+
+function cartToOrderPage(){
+  closeCart();
+  orderItems=cartItems.map(ci=>({...ci}));
+  orderUpdate();
+  goPage('compra');
+}
+
+function cartToOrder(){
+  orderItems=cartItems.map(ci=>({...ci}));
+  orderUpdate();
+}
+
+function getRecargoInfo(pago){
+  if(pago==='Tarjeta de crédito') return {pct:0.21+0.15,label:'Recargo crédito (+21% +15%)',desc:'Tarjeta de crédito: +21% IVA tarjeta +15% financiero'};
+  if(pago==='Débito / Transferencia') return {pct:0.15,label:'Recargo débito/transf. (+15%)',desc:'Débito / Transferencia: +15%'};
+  return null;
+}
+
+function orderUpdate(){
+  const nombre=document.getElementById('co-nombre').value||'—';
+  const tel=document.getElementById('co-tel').value||'—';
+  const email=document.getElementById('co-email').value||'—';
+  const dir=document.getElementById('co-dir')?document.getElementById('co-dir').value:'';
+  const ref=document.getElementById('co-ref')?document.getElementById('co-ref').value:'';
+  const pago=getOrderPago();
+  const subtotal=orderItems.reduce((s,i)=>s+i.price*i.qty,0);
+  const envioCosto=getEnvioCosto();
+  const envioBarrio=getEnvioBarrio();
+  const envioZona=getEnvioZona();
+  const baseConEnvio=subtotal+(envioCosto||0);
+
+  // Recargo
+  const recInfo=getRecargoInfo(pago);
+  const recargoMonto=recInfo?Math.round(subtotal*recInfo.pct):0;
+  const totalFinal=baseConEnvio+recargoMonto;
+
+  // recargo info box
+  const riBox=document.getElementById('recargo-info-box');
+  if(recInfo){
+    riBox.style.display='block';
+    riBox.innerHTML=`💡 <strong>${recInfo.desc}</strong> — Se aplica sobre el subtotal de productos. El envío no tiene recargo.`;
+  } else {
+    riBox.style.display='none';
+  }
+
+  // recargo row in summary
+  const recargoRow=document.getElementById('op-recargo-row');
+  if(recInfo&&recargoMonto>0){
+    recargoRow.style.display='flex';
+    document.getElementById('op-recargo-label').textContent=recInfo.label;
+    document.getElementById('op-recargo-cost').textContent='+'+fmtPrice(recargoMonto);
+  } else {
+    recargoRow.style.display='none';
+  }
+
+  // empty notice
+  document.getElementById('compra-empty-notice').style.display=orderItems.length?'none':'block';
+
+  // preview header
+  document.getElementById('op-nombre').textContent=nombre;
+  document.getElementById('op-tel').textContent=tel;
+  document.getElementById('op-email').textContent=email;
+  document.getElementById('op-pago-badge').textContent=pago+(recInfo?` (${recInfo.label})`:'');
+
+  // entrega preview
+  const entregaEl=document.getElementById('op-entrega-preview');
+  if(retiroMode==='local'){
+    entregaEl.innerHTML='<span class="opdf-badge">🏪 Retiro en local</span><br><span style="font-size:.72rem;color:var(--mid)">San Lorenzo 109 Este · L–V 8–18 hs · Sáb 8–13 hs</span>';
+  } else {
+    const zonaLabel=envioZona?ZONAS[envioZona].nombre:'Sin zona';
+    const costoLabel=envioCosto!==null?fmtPrice(envioCosto):'Seleccioná barrio';
+    entregaEl.innerHTML=
+      `<span class="opdf-badge opdf-envio-badge">🚚 ${envioBarrio||'Sin barrio'}</span> `+
+      `<span class="opdf-badge" style="background:var(--blue)">${zonaLabel} · ${costoLabel}</span>`+
+      (dir?`<br><span style="font-size:.72rem;color:var(--mid)">${dir}</span>`:'<br><span style="font-size:.72rem;color:var(--red)">Ingresá tu dirección</span>')+
+      (ref?`<br><span style="font-size:.68rem;color:var(--mid)">Ref: ${ref}</span>`:'');
+  }
+
+  // totals summary
+  document.getElementById('op-subtotal').textContent=fmtPrice(subtotal);
+  if(retiroMode==='local'){
+    document.getElementById('op-envio-label').textContent='Envío';
+    document.getElementById('op-envio-cost').textContent='Retiro en local (gratis)';
+    document.getElementById('op-total').textContent=fmtPrice(totalFinal);
+  } else {
+    const zonaLabel=envioZona?`${ZONAS[envioZona].nombre} · `:''
+    document.getElementById('op-envio-label').textContent=`Envío${envioBarrio?' — '+envioBarrio:''}`;
+    document.getElementById('op-envio-cost').textContent=envioCosto!==null?zonaLabel+fmtPrice(envioCosto):'Seleccioná barrio';
+    document.getElementById('op-total').textContent=envioCosto!==null?fmtPrice(totalFinal):'— + envío';
+  }
+
+  // items list (summary card)
+  const listEl=document.getElementById('order-items-list');
+  if(!orderItems.length){
+    listEl.innerHTML='<div class="order-empty">Sin productos aún.<br><button onclick="goPage(\'catalogo\')" style="background:none;border:none;color:var(--blue);font-weight:700;cursor:pointer;font-size:.82rem;margin-top:4px;text-decoration:underline">Ir al catálogo →</button></div>';
+  } else {
+    listEl.innerHTML=orderItems.map(it=>`
+      <div class="order-item">
+        <div><div class="order-item-name">${it.nom}</div><div class="order-item-sub">${it.variant} · ${it.unitLabel} ×${it.qty}</div></div>
+        <div class="order-item-price">${fmtPrice(it.price*it.qty)}</div>
+      </div>`).join('');
+  }
+
+  // PDF preview table
+  document.getElementById('op-tbody').innerHTML=orderItems.length===0
+    ?'<tr><td colspan="4" style="color:var(--mid);font-size:.72rem;padding:.4rem">Sin productos.</td></tr>'
+    :orderItems.map((it,i)=>`<tr><td>${i+1}</td><td>${it.nom} (${it.variant})</td><td>${it.unitLabel}×${it.qty}</td><td style="font-weight:700;color:var(--blue)">${fmtPrice(it.price*it.qty)}</td></tr>`).join('');
+
+  updateMPButton();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('op-fecha').textContent=hoy();
+  document.getElementById('op-num').textContent='N° '+orderNum;
+  orderUpdate();
+});
+
+function generateOrder(sendWa){
+  const nombre=document.getElementById('co-nombre').value.trim();
+  const tel=document.getElementById('co-tel').value.trim();
+  if(!nombre){alert('Por favor ingresá tu nombre.');return;}
+  if(!tel){alert('Por favor ingresá tu teléfono.');return;}
+  if(!orderItems.length){alert('Tu carrito está vacío. Agregá productos antes de comprar.');return;}
+
+  const envioBarrio=getEnvioBarrio();
+  const envioCosto=getEnvioCosto();
+  const envioZona=getEnvioZona();
+
+  if(retiroMode==='envio'){
+    if(!envioBarrio){alert('Por favor seleccioná tu barrio.');return;}
+    if(!document.getElementById('co-dir').value.trim()){alert('Por favor ingresá la dirección de entrega.');return;}
+  }
+
+  const dni=document.getElementById('co-dni').value.trim();
+  const email=document.getElementById('co-email').value.trim();
+  const dir=document.getElementById('co-dir').value.trim();
+  const ref=document.getElementById('co-ref').value.trim();
+  const obs=document.getElementById('co-obs').value.trim();
+  const pago=getOrderPago();
+  const subtotal=orderItems.reduce((s,i)=>s+i.price*i.qty,0);
+  const recInfo=getRecargoInfo(pago);
+  const recargoMonto=recInfo?Math.round(subtotal*recInfo.pct):0;
+  const totalFinal=subtotal+(envioCosto||0)+recargoMonto;
+
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'p',unit:'mm',format:'a4'});
+  const W=210,pad=18;
+
+  // Header
+  doc.setFillColor(27,43,173);doc.rect(0,0,W,38,'F');
+  doc.setFillColor(204,10,10);doc.rect(0,38,W,4,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(20);doc.text('Alvez Electricidad',pad,18);
+  doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('ORDEN DE COMPRA OFICIAL',pad,26);
+  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('N° '+orderNum,W-pad,18,{align:'right'});
+  doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text(hoy(),W-pad,26,{align:'right'});
+
+  let y=52;
+  // Cliente
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('DATOS DEL COMPRADOR',pad+2,y);y+=7;
+  [['NOMBRE',nombre],['DNI',dni||'—'],['TELÉFONO',tel],['EMAIL',email||'—']].forEach(([l,v])=>{
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(120,120,120);doc.text(l,pad,y);
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(30,30,30);doc.text(v,pad,y+5);y+=11;
+  });
+
+  y+=4;
+  // Entrega
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('MÉTODO DE ENTREGA',pad+2,y);y+=8;
+  if(retiroMode==='local'){
+    doc.setFillColor(27,43,173);doc.roundedRect(pad,y-4,70,9,2,2,'F');
+    doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('Retiro en local',pad+3,y+2.5);
+    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(80,80,80);doc.text('San Lorenzo 109 Este — L a V: 8 a 18 hs | Sábados: 8 a 13 hs',pad,y+12);y+=22;
+  } else {
+    const zonaInfo=ZONAS[envioZona];
+    doc.setFillColor(204,10,10);doc.roundedRect(pad,y-4,55,9,2,2,'F');
+    doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('Envío a domicilio',pad+3,y+2.5);
+    doc.setFillColor(27,43,173);doc.roundedRect(pad+58,y-4,45,9,2,2,'F');
+    doc.text(zonaInfo.nombre+' · '+fmtPrice(envioCosto),pad+61,y+2.5);
+    y+=12;
+    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(30,30,30);
+    doc.text('Barrio: '+envioBarrio,pad,y);y+=6;
+    doc.text('Dirección: '+dir,pad,y);y+=6;
+    if(ref){doc.text('Ref: '+ref,pad,y);y+=6;}
+  }
+
+  y+=4;
+  // Productos
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('PRODUCTOS',pad+2,y);y+=6;
+  const cols={a:pad,b:pad+10,c:pad+80,d:W-pad-2};
+  doc.setFillColor(27,43,173);doc.rect(pad,y,W-pad*2,8,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(7.5);
+  doc.text('#',cols.a+1,y+5.5);doc.text('PRODUCTO',cols.b,y+5.5);doc.text('CANT.',cols.c,y+5.5);doc.text('PRECIO',cols.d,y+5.5,{align:'right'});y+=8;
+  orderItems.forEach((it,i)=>{
+    const bg=i%2===0?[255,255,255]:[248,248,252];
+    doc.setFillColor(...bg);doc.rect(pad,y,W-pad*2,8,'F');
+    doc.setTextColor(30,30,30);doc.setFont('helvetica','normal');doc.setFontSize(8);
+    doc.text(String(i+1),cols.a+1,y+5.5);
+    doc.text((it.nom+' ('+it.variant+')').substring(0,38),cols.b,y+5.5);
+    doc.text(it.unitLabel+'×'+it.qty,cols.c,y+5.5);
+    doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');
+    doc.text(fmtPrice(it.price*it.qty),cols.d,y+5.5,{align:'right'});y+=8;
+  });
+  // Subtotal row
+  doc.setFillColor(240,242,255);doc.rect(pad,y,W-pad*2,8,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8.5);
+  doc.text('Subtotal',cols.b,y+5.5);
+  doc.text(fmtPrice(subtotal),cols.d,y+5.5,{align:'right'});y+=8;
+  // Envío row
+  if(retiroMode==='envio'){
+    doc.setFillColor(255,245,245);doc.rect(pad,y,W-pad*2,8,'F');
+    doc.setTextColor(204,10,10);doc.setFont('helvetica','bold');doc.setFontSize(8.5);
+    doc.text('Envío — '+envioBarrio+' ('+ZONAS[envioZona].nombre+')',cols.b,y+5.5);
+    doc.text(fmtPrice(envioCosto),cols.d,y+5.5,{align:'right'});y+=8;
+  }
+  // Recargo row
+  if(recInfo&&recargoMonto>0){
+    doc.setFillColor(255,248,240);doc.rect(pad,y,W-pad*2,8,'F');
+    doc.setTextColor(180,60,0);doc.setFont('helvetica','bold');doc.setFontSize(8.5);
+    doc.text(recInfo.label,cols.b,y+5.5);
+    doc.text('+'+fmtPrice(recargoMonto),cols.d,y+5.5,{align:'right'});y+=8;
+  }
+  // Total final
+  doc.setFillColor(27,43,173);doc.rect(pad,y,W-pad*2,10,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(10);
+  doc.text('TOTAL',cols.b,y+6.5);
+  doc.text(fmtPrice(totalFinal),cols.d,y+6.5,{align:'right'});y+=10;
+
+  y+=8;
+  // Pago
+  doc.setFillColor(242,241,238);doc.rect(pad,y-5,W-pad*2,7,'F');
+  doc.setTextColor(27,43,173);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('FORMA DE PAGO',pad+2,y);y+=9;
+  doc.setFillColor(27,43,173);doc.roundedRect(pad,y-5,90,10,2,2,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text(pago,pad+4,y+1.5);
+
+  if(obs){y+=16;doc.setFontSize(8);doc.setTextColor(80,80,80);doc.setFont('helvetica','normal');doc.text('Obs: '+obs,pad,y);}
+
+  doc.setDrawColor(204,10,10);doc.setLineWidth(.8);doc.line(pad,280,W-pad,280);
+  doc.setTextColor(130,130,130);doc.setFont('helvetica','italic');doc.setFontSize(8);doc.text('Alvez Electricidad — Orden válida por 15 días desde la fecha de emisión',W/2,285,{align:'center'});
+  doc.save('Orden_'+orderNum+'_Alvez_Electricidad.pdf');
+
+  if(sendWa){
+    const entrega=retiroMode==='local'
+      ?'🏪 Retiro en local (San Lorenzo 109 Este)'
+      :`🚚 Envío a domicilio\nBarrio: ${envioBarrio} (${ZONAS[envioZona].nombre})\nDirección: ${dir}${ref?' | Ref: '+ref:''}\nCosto envío: ${fmtPrice(envioCosto)}`;
+    const lista=orderItems.map(i=>`• ${i.nom} (${i.variant}) — ${i.unitLabel}×${i.qty} = ${fmtPrice(i.price*i.qty)}`).join('\n');
+    const texto=encodeURIComponent(
+      `🛒 *ORDEN DE COMPRA N°${orderNum}*\n`+
+      `Alvez Electricidad\n\n`+
+      `👤 *Comprador:* ${nombre}\n`+
+      `📱 *Tel:* ${tel}\n`+
+      (email?`✉️ *Email:* ${email}\n`:'')+
+      `\n📦 *Productos:*\n${lista}\n`+
+      `💰 *Subtotal:* ${fmtPrice(subtotal)}\n`+
+      (retiroMode==='envio'?`🚚 *Envío:* ${fmtPrice(envioCosto)}\n`:'')+
+      (recInfo&&recargoMonto>0?`📊 *${recInfo.label}:* +${fmtPrice(recargoMonto)}\n`:'')+
+      `💵 *TOTAL: ${fmtPrice(totalFinal)}*\n`+
+      `\n${entrega}\n`+
+      `💳 *Pago:* ${pago}\n`+
+      (obs?`\n📝 *Obs:* ${obs}\n`:'')+
+      `\n📄 Orden PDF adjunta.`
+    );
+    setTimeout(()=>window.open(`https://wa.me/5493454079486?text=${texto}`,'_blank'),800);
+  }
+  orderNum++;
+  document.getElementById('op-num').textContent='N° '+orderNum;
+}
+
+// ── MERCADO PAGO CONFIG ──
+// ⚠️ Reemplazá esta URL con la que te da Railway después del deploy
+const BACKEND_URL = 'https://alvez-backend-production.up.railway.app';
+async function pagarConMP() {
+  const nombre = document.getElementById('co-nombre').value.trim();
+  const tel    = document.getElementById('co-tel').value.trim();
+  const email  = document.getElementById('co-email').value.trim();
+
+  if (!nombre) { alert('Por favor ingresá tu nombre.'); return; }
+  if (!tel)    { alert('Por favor ingresá tu teléfono.'); return; }
+  if (!orderItems.length) { alert('Tu carrito está vacío. Agregá productos antes de pagar.'); return; }
+
+  if (retiroMode === 'envio') {
+    if (!getEnvioBarrio()) { alert('Por favor seleccioná tu barrio.'); return; }
+    if (!document.getElementById('co-dir').value.trim()) { alert('Por favor ingresá la dirección de entrega.'); return; }
+  }
+
+  const pago        = getOrderPago();
+  const subtotal    = orderItems.reduce((s, i) => s + i.price * i.qty, 0);
+  const envioCosto  = getEnvioCosto() || 0;
+  const recInfo     = getRecargoInfo(pago);
+  const recargoMonto = recInfo ? Math.round(subtotal * recInfo.pct) : 0;
+  const total       = subtotal + envioCosto + recargoMonto;
+
+  // Mostrar spinner
+  const btn = document.getElementById('btn-pagar-mp');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="mp-spinner"></div> Procesando...';
+
+  try {
+    const resp = await fetch(BACKEND_URL + '/crear-pago', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: orderItems,
+        comprador: { nombre, tel, email,
+          dni: document.getElementById('co-dni').value.trim() },
+        entrega: {
+          modo: retiroMode,
+          barrio: getEnvioBarrio(),
+          zona: getEnvioZona() ? ZONAS[getEnvioZona()].nombre : '',
+          costo: envioCosto,
+          dir: retiroMode === 'envio' ? document.getElementById('co-dir').value.trim() : '',
+          ref: retiroMode === 'envio' ? document.getElementById('co-ref').value.trim() : '',
+        },
+        pago,
+        recargo: recInfo ? { label: recInfo.label, monto: recargoMonto } : null,
+        total,
+        obs: document.getElementById('co-obs').value.trim(),
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.init_point) {
+      // Redirigir al checkout de Mercado Pago
+      window.location.href = data.init_point;
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('No se pudo conectar con el servidor de pagos. Verificá tu conexión o contactanos por WhatsApp.');
+    btn.disabled = false;
+    btn.innerHTML = '<span style="font-size:1.3rem">💳</span> Pagar con Mercado Pago';
+  }
+}
+
+// Mostrar/ocultar botón MP según método de pago elegido
+function updateMPButton() {
+  const pago = getOrderPago();
+  const isEfectivo = pago === 'Efectivo';
+  const mpBtn  = document.getElementById('btn-pagar-mp');
+  const mpSep  = document.getElementById('mp-separator');
+  const efNote = document.getElementById('efectivo-notice');
+  if (mpBtn)  { mpBtn.style.display  = isEfectivo ? 'none' : 'flex'; }
+  if (mpSep)  { mpSep.style.display  = isEfectivo ? 'none' : 'flex'; }
+  if (efNote) { efNote.classList.toggle('show', isEfectivo); }
+}
+
+// Detectar si el cliente volvió de Mercado Pago
+function checkPagoResult() {
+  const params = new URLSearchParams(window.location.search);
+  const estado = params.get('pago');
+  if (!estado) return;
+  goPage('compra');
+  if (estado === 'exitoso')   { document.getElementById('pago-exitoso').classList.add('show'); }
+  if (estado === 'fallido')   { document.getElementById('pago-fallido').classList.add('show'); }
+  if (estado === 'pendiente') { document.getElementById('pago-pendiente').classList.add('show'); }
+  // Limpiar URL
+  window.history.replaceState({}, '', window.location.pathname);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  checkPagoResult();
+  updateMPButton();
+});
+
+
+function calcular(){
+  const m2=parseFloat(document.getElementById('calc-m2').value)||0;
+  const amb=parseInt(document.getElementById('calc-amb').value)||0;
+  const circ=parseInt(document.getElementById('calc-circ').value)||0;
+  const tomas=parseInt(document.getElementById('calc-tomas').value)||0;
+  const llaves=parseInt(document.getElementById('calc-llaves').value)||0;
+  const tipo=document.getElementById('calc-tipo').value;
+  if(!m2&&!amb){alert('Ingresá al menos la superficie o los ambientes.');return;}
+  const factor=tipo==='industrial'?1.5:tipo==='comercial'?1.2:1;
+  const cableM=Math.ceil((m2||amb*15)*2.5*factor);
+  const cajas=Math.ceil(tomas+llaves+(amb*2));
+  const modToma=tomas||Math.ceil(amb*2);
+  const modLlave=llaves||Math.ceil(amb*1.5);
+  const bastidores=Math.ceil((modToma+modLlave)/3);
+  const items=[
+    {val:cableM+' m',unit:'Cable 1×2.5mm',ico:'🔌'},
+    {val:cajas,unit:'Cajas instalación',ico:'📦'},
+    {val:bastidores,unit:'Bastidores 3 mód.',ico:'🔲'},
+    {val:modToma,unit:'Módulos toma 10A',ico:'🔵'},
+    {val:modLlave,unit:'Módulos punto (llave)',ico:'⚪'},
+    {val:circ||Math.ceil(amb/2),unit:'Circuitos sugeridos',ico:'⚡'},
+  ];
+  document.getElementById('calc-result-grid').innerHTML=items.map(i=>`
+    <div class="calc-res-item">
+      <div style="font-size:1.5rem;margin-bottom:4px">${i.ico}</div>
+      <div class="val">${i.val}</div>
+      <div class="unit">${i.unit}</div>
+    </div>`).join('');
+  const r=document.getElementById('calc-result');r.classList.add('show');r.scrollIntoView({behavior:'smooth',block:'nearest'});
+  window._calcItems=items;
+}
+function sendCalcToWhatsapp(){
+  if(!window._calcItems)return;
+  const lista=window._calcItems.map(i=>`• ${i.val} de ${i.unit}`).join('\n');
+  const texto=encodeURIComponent(`Hola Alvez Electricidad! Necesito cotizar estos materiales según la calculadora:\n\n${lista}\n\n¿Me pueden dar un presupuesto?`);
+  window.open(`https://wa.me/5493454079486?text=${texto}`,'_blank');
+}
+
+// ── IMPORTAR PRECIOS DESDE EXCEL ──
+// Los productos se guardan en el backend de Railway — visibles para TODOS los usuarios.
+
+let importedPrices = {};
+
+async function loadSharedPrices(){
+  try{
+    const r = await fetch(BACKEND_URL + '/productos');
+    if(r.ok){ importedPrices = await r.json(); }
+    else { importedPrices = {}; }
+  }catch(e){ importedPrices = {}; }
+
+  if(Object.keys(importedPrices).length>0){
+    Object.entries(importedPrices).forEach(([sku,datos])=>{
+      const existente=document.querySelector('.prod-card[data-sku="'+sku.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"]');
+      if(existente){
+        const el=existente.querySelector('.imported-price-display');
+        if(el){el.style.display='';el.innerHTML=buildPriceDisplay(datos.precio,datos.stock);}
+      } else {
+        insertarProductoImportado(sku,datos);
+      }
+    });
+    actualizarFiltrosCategorias();
+    renderActivePrices();
+  }
+}
+
+async function saveSharedPrices(){
+  try{
+    await fetch(BACKEND_URL + '/productos', {
+      method: 'PUT',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(importedPrices)
+    });
+  }catch(e){ console.error('Error guardando productos en backend:', e); }
+}
+
+const COL_ALIASES = {
+  codigo:    ['codigo','código','code','sku','ref','referencia','cod','art','articulo','artículo','id'],
+  stock:     ['stock','cantidad','cant','qty','disponible','existencia','existencias','stock_actual'],
+  precio:    ['precio','price','precio_venta','p_venta','pventa','valor','importe','costo','cost'],
+  nombre:    ['nombre','name','descripcion','descripción','desc','producto','detalle','item'],
+  categoria: ['categoria','categoría','category','cat','rubro','tipo','seccion','sección','familia'],
+};
+
+const CAT_MAP = {
+  'cable':'cables','cables':'cables','cableado':'cables','unipolar':'cables','taller':'cables','subterraneo':'cables','subterráneo':'cables',
+  'caja':'cajas','cajas':'cajas','instalacion':'cajas','instalación':'cajas','rectangular':'cajas','octogonal':'cajas','mignon':'cajas',
+  'estanca':'estancas','estancas':'estancas','ip65':'estancas','hermetica':'estancas','hermética':'estancas',
+  'jeluz':'jeluz','verona':'jeluz','bastidor':'jeluz','tapa':'jeluz','porta':'jeluz',
+  'modulo':'modulos','módulo':'modulos','modulos':'modulos','módulos':'modulos','toma':'modulos','llave':'modulos','timbre':'modulos','ciego':'modulos',
+};
+
+const CAT_META = {
+  cables:   {label:'Cables',      ico:'🔌', bg:'linear-gradient(135deg,var(--blue) 0%,#0e1d7a 100%)'},
+  cajas:    {label:'Cajas inst.', ico:'📦', bg:'linear-gradient(135deg,var(--blue) 0%,#0e1d7a 100%)'},
+  estancas: {label:'Estancas',    ico:'🛡️', bg:'linear-gradient(135deg,var(--blue) 0%,#0e1d7a 100%)'},
+  jeluz:    {label:'Jeluz Verona',ico:'🔲', bg:'linear-gradient(135deg,#111 0%,#222 100%)'},
+  modulos:  {label:'Módulos',     ico:'🔵', bg:'linear-gradient(135deg,#111 0%,#222 100%)'},
+};
+
+function normalizeHeader(h){return String(h).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+function normalizeVal(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+
+function detectCols(headers){
+  const map={};
+  headers.forEach((h,i)=>{
+    const nh=normalizeHeader(h);
+    for(const [key,aliases] of Object.entries(COL_ALIASES)){
+      if(!map[key] && aliases.some(a=>nh===a||nh.startsWith(a))){map[key]=i;}
+    }
+  });
+  return map;
+}
+
+function resolveCat(rawCat){
+  if(!rawCat||String(rawCat).trim()==='')return'otros';
+  const nv=normalizeVal(rawCat);
+  if(CAT_MAP[nv])return CAT_MAP[nv];
+  for(const [k,v] of Object.entries(CAT_MAP)){if(nv.includes(k))return v;}
+  return nv.replace(/[^a-z0-9]/g,'_').slice(0,20)||'otros';
+}
+
+function fmtImportPrice(v){
+  if(v===undefined||v===null||v==='')return'—';
+  const n=parseFloat(String(v).replace(/[^0-9.,]/g,'').replace(',','.'));
+  return isNaN(n)?String(v):'$'+n.toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function dzOver(e){e.preventDefault();document.getElementById('drop-zone').classList.add('drag-over');}
+function dzLeave(){document.getElementById('drop-zone').classList.remove('drag-over');}
+function dzDrop(e){e.preventDefault();dzLeave();const f=e.dataTransfer.files[0];if(f)handleExcelFile(f);}
+
+let pendingData=[];
+let pendingColMap={};
+
+function handleExcelFile(file){
+  if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(!['xlsx','xls','csv'].includes(ext)){showImportStatus('err','❌ Formato no soportado. Usá .xlsx, .xls o .csv');return;}
+  const dz=document.getElementById('drop-zone');
+  dz.classList.add('has-file');
+  document.getElementById('dz-ico').textContent='📄';
+  document.getElementById('dz-title').textContent=file.name;
+  document.getElementById('dz-sub').textContent='Procesando…';
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=new Uint8Array(ev.target.result);
+      const wb=XLSX.read(data,{type:'array'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      if(rows.length<2){showImportStatus('err','❌ El archivo está vacío o tiene solo encabezados.');return;}
+      const headers=rows[0];
+      const colMap=detectCols(headers);
+      if(colMap.codigo===undefined){showImportStatus('err','❌ No se encontró columna de Código.');return;}
+      pendingColMap=colMap;
+      pendingData=rows.slice(1).filter(r=>String(r[colMap.codigo]||'').trim()!=='');
+      renderPreview(pendingData,colMap,file.name);
+    }catch(err){showImportStatus('err','❌ Error al leer el archivo: '+err.message);}
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderPreview(rows,colMap,fname){
+  document.getElementById('import-thead').innerHTML=
+    '<th>Código</th><th>Nombre</th><th>Categoría</th><th>Stock</th><th>Precio</th>';
+  let okPrice=0,noStock=0,noCode=0;
+  rows.forEach(r=>{
+    const cod=String(r[colMap.codigo]||'').trim();
+    if(!cod){noCode++;return;}
+    const p=colMap.precio!==undefined?r[colMap.precio]:'';
+    const s=colMap.stock!==undefined?r[colMap.stock]:'';
+    if(p!==''&&p!==undefined)okPrice++;
+    if(s===''||s===undefined||parseInt(s)===0)noStock++;
+  });
+  document.getElementById('imp-total').textContent=rows.length;
+  document.getElementById('imp-ok').textContent=okPrice;
+  document.getElementById('imp-nostock').textContent=noStock;
+  document.getElementById('imp-noname').textContent=noCode;
+  document.getElementById('import-summary').style.display='grid';
+  const maxRows=200;
+  const shown=rows.slice(0,maxRows);
+  document.getElementById('import-tbody').innerHTML=shown.map(r=>{
+    const cod=String(r[colMap.codigo]||'').trim();
+    const nom=colMap.nombre!==undefined?String(r[colMap.nombre]||''):'';
+    const rawCat=colMap.categoria!==undefined?String(r[colMap.categoria]||''):'';
+    const cat=resolveCat(rawCat);
+    const catMeta=CAT_META[cat];
+    const catLabel=catMeta?catMeta.label:(rawCat||cat);
+    const st=colMap.stock!==undefined?r[colMap.stock]:'';
+    const pr=colMap.precio!==undefined?r[colMap.precio]:'';
+    const sn=parseInt(st);
+    const sc=isNaN(sn)?'':sn===0?'stock-tag stock-out':sn<10?'stock-tag stock-low':'stock-tag stock-ok';
+    const stLabel=st===''||st===undefined?'<span class="td-nomatch">—</span>':`<span class="${sc}">${st}</span>`;
+    const existente=document.querySelector(`[data-sku="${cod.replace(/"/g,'\\"')}"]`);
+    const badge=existente
+      ?'<span style="font-size:.65rem;background:rgba(27,43,173,.1);color:var(--blue);border-radius:3px;padding:.1rem .4rem;margin-left:3px">actualiza</span>'
+      :'<span style="font-size:.65rem;background:rgba(26,122,60,.1);color:#1a5c2f;border-radius:3px;padding:.1rem .4rem;margin-left:3px">nuevo</span>';
+    return`<tr>
+      <td><strong>${cod}</strong>${badge}</td>
+      <td class="${nom?'':'td-nomatch'}">${nom||'—'}</td>
+      <td><span style="font-size:.72rem;font-weight:700">${catLabel}</span></td>
+      <td>${stLabel}</td>
+      <td class="${pr!==''?'td-price':'td-nomatch'}">${fmtImportPrice(pr)}</td>
+    </tr>`;
+  }).join('');
+  if(rows.length>maxRows){
+    document.getElementById('import-tbody').innerHTML+=`<tr><td colspan="5" style="text-align:center;color:var(--mid);font-style:italic;font-size:.78rem">… y ${rows.length-maxRows} filas más</td></tr>`;
+  }
+  document.getElementById('import-preview').style.display='block';
+  showImportStatus('ok',`✅ Archivo leído: ${rows.length} productos. Revisá la vista previa y hacé clic en "Aplicar".`);
+  document.getElementById('dz-sub').textContent=`${fname} · ${rows.length} filas · clic para cambiar`;
+}
+
+async function applyImport(){
+  if(!pendingData.length){showImportStatus('err','❌ No hay datos para aplicar.');return;}
+  const colMap=pendingColMap;
+
+  // Construir mapa SOLO con los datos del archivo actual (sin resetear importedPrices)
+  const nuevosBatch={};
+  pendingData.forEach(r=>{
+    const cod=String(r[colMap.codigo]||'').trim();
+    if(!cod)return;
+    const pr=colMap.precio!==undefined?r[colMap.precio]:'';
+    const st=colMap.stock!==undefined?r[colMap.stock]:'';
+    const nom=colMap.nombre!==undefined?String(r[colMap.nombre]||''):cod;
+    const rawCat=colMap.categoria!==undefined?String(r[colMap.categoria]||''):'';
+    const cat=resolveCat(rawCat);
+    const rawCatLabel=rawCat||cat;
+    const precioNum=pr!==''?parseFloat(String(pr).replace(/[^0-9.,]/g,'').replace(',','.')):null;
+    const stockNum=st!==''?parseInt(st):null;
+    nuevosBatch[cod]={
+      precio:(!isNaN(precioNum)&&precioNum!==null)?precioNum:null,
+      stock:(!isNaN(stockNum)&&stockNum!==null)?stockNum:null,
+      nombre:nom, cat, rawCatLabel
+    };
+  });
+
+  let actualizados=0, nuevos=0;
+
+  Object.entries(nuevosBatch).forEach(([sku,datos])=>{
+    // Acumular/sobreescribir en el mapa maestro por SKU
+    importedPrices[sku]=datos;
+
+    const skuSafe=sku.replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+    const existente=document.querySelector('.prod-card[data-sku="'+skuSafe+'"]');
+    if(existente){
+      // Actualizar precio/stock en la tarjeta existente
+      const el=existente.querySelector('.imported-price-display');
+      if(el){el.style.display='';el.innerHTML=buildPriceDisplay(datos.precio,datos.stock);}
+      const priceTag=existente.querySelector('.price-tag');
+      if(priceTag&&datos.precio!==null&&datos.precio>0){
+        priceTag.innerHTML='<span class="price-amount">'+fmtPrice(datos.precio)+'</span><span class="price-unit">/u</span>';
+        priceTag.style.display='';
+      }
+      actualizados++;
+    } else {
+      insertarProductoImportado(sku,datos);
+      nuevos++;
+    }
+  });
+
+  // Persistir en storage compartido (visible para todos los usuarios)
+  await saveSharedPrices();
+
+  actualizarFiltrosCategorias();
+  renderActivePrices();
+  const totalEnCatalogo=Object.keys(importedPrices).length;
+  showImportStatus('ok','✅ ¡Listo! '+actualizados+' actualizados · '+nuevos+' nuevos · '+totalEnCatalogo+' productos en catálogo. Sincronizado para todos los usuarios. 🌐');
+  document.getElementById('import-preview').style.display='none';
+  document.getElementById('import-summary').style.display='none';
+  clearImport();
+}
+function buildPriceDisplay(precio,stock){
+  let html='';
+  if(precio!==null)html+=`<span class="price-imported-badge">Mi precio: ${fmtPrice(precio)}</span> `;
+  if(stock!==null){
+    const cls=stock===0?'stock-out':stock<10?'stock-low':'stock-ok';
+    html+=`<span class="stock-tag ${cls}">Stock: ${stock}</span>`;
+  }
+  return html;
+}
+
+function insertarProductoImportado(sku,{precio,stock,nombre,cat,rawCatLabel}){
+  const grid=document.getElementById('all-products');
+  if(!grid)return;
+  const nomDisplay=nombre||sku;
+  const nomSafe=nomDisplay.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  const catMeta=CAT_META[cat];
+  const catLabel=catMeta?catMeta.label:rawCatLabel;
+  const catIco=catMeta?catMeta.ico:'📋';
+  const cardBg=catMeta?catMeta.bg:'linear-gradient(135deg,#1a7a3c 0%,#155c2f 100%)';
+
+  let botonesHtml='';
+  if(precio!==null&&precio>0){
+    botonesHtml=`
+      <button class="btn-add-cart" style="margin-bottom:6px" onclick="addToCart('${nomSafe}','${catLabel}','u',${precio},'u',1)">🛒 Agregar al carrito</button>
+      <button class="btn-pedir-presupuesto" onclick="addToBudget('${nomSafe}','${catLabel}','u','1')">📋 Al presupuesto</button>`;
+  } else {
+    botonesHtml=`<button class="btn-add-to-budget" onclick="addToBudget('${nomSafe}','${catLabel}','—','1')">+ Agregar al presupuesto</button>`;
+  }
+
+  const card=document.createElement('div');
+  card.className='prod-card';
+  card.dataset.cat=cat;
+  card.dataset.sku=sku;
+  card.dataset.imported='true';
+  card.innerHTML=`
+    <div class="prod-card-img" style="background:${cardBg}">${catIco}</div>
+    <div class="prod-card-body">
+      <div class="prod-cat-tag">${catLabel}</div>
+      <div class="prod-card-name">${nomDisplay}</div>
+      <div style="font-size:.68rem;color:var(--mid);font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:4px">SKU: ${sku}</div>
+      <div class="imported-price-display" style="margin-bottom:6px;font-size:.75rem">${buildPriceDisplay(precio,stock)}</div>
+      ${precio!==null&&precio>0?`<div class="price-tag"><span class="price-amount">${fmtPrice(precio)}</span><span class="price-unit">/u</span></div>`:''}
+      ${botonesHtml}
+    </div>`;
+
+  // Insertar junto a los demás de la misma categoría
+  const catCards=[...grid.querySelectorAll(`.prod-card[data-cat="${cat}"]:not([data-imported="true"])`)];
+  if(catCards.length>0){
+    const last=catCards[catCards.length-1];
+    last.parentNode.insertBefore(card,last.nextSibling);
+  } else {
+    // Si la categoría ya tiene importados, agregar al final de ellos
+    const importedCat=[...grid.querySelectorAll(`.prod-card[data-cat="${cat}"]`)];
+    if(importedCat.length>0){
+      const last=importedCat[importedCat.length-1];
+      last.parentNode.insertBefore(card,last.nextSibling);
+    } else {
+      grid.appendChild(card);
+    }
+  }
+}
+
+function actualizarFiltrosCategorias(){
+  const grid=document.getElementById('all-products');
+  const filterGrid=document.getElementById('cat-filter-grid');
+  if(!grid||!filterGrid)return;
+  filterGrid.querySelectorAll('[data-cat-btn-import]').forEach(e=>e.remove());
+  const catsNativas=new Set(['cables','cajas','estancas','jeluz','modulos']);
+  const catsNuevas=new Set();
+  grid.querySelectorAll('.prod-card[data-imported="true"]').forEach(c=>{
+    const cat=c.dataset.cat;
+    if(!catsNativas.has(cat))catsNuevas.add(cat);
+  });
+  catsNuevas.forEach(cat=>{
+    const label=cat.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+    const btn=document.createElement('div');
+    btn.className='cat-card';
+    btn.dataset.catBtnImport=cat;
+    btn.innerHTML=`<div class="cat-ico">📋</div><div class="cat-card-name">${label}</div>`;
+    btn.onclick=function(){filterCat(cat,this);};
+    filterGrid.appendChild(btn);
+  });
+}
+
+function renderActivePrices(){
+  const keys=Object.keys(importedPrices);
+  const box=document.getElementById('active-prices-box');
+  if(!keys.length){box.style.display='none';return;}
+  box.style.display='block';
+  // Update header to include categoria column
+  const thead=document.querySelector('#active-prices-box table thead tr');
+  if(thead)thead.innerHTML='<th>Código</th><th>Nombre</th><th>Categoría</th><th>Stock</th><th>Precio</th>';
+  document.getElementById('active-prices-tbody').innerHTML=keys.map(cod=>{
+    const {precio,stock,nombre,cat,rawCatLabel}=importedPrices[cod];
+    const catMeta=CAT_META[cat];
+    const catLabel=catMeta?catMeta.label:(rawCatLabel||cat);
+    const sn=stock===null?null:parseInt(stock);
+    const sc=sn===null?'':'stock-tag '+(sn===0?'stock-out':sn<10?'stock-low':'stock-ok');
+    return`<tr>
+      <td><strong>${cod}</strong></td>
+      <td>${nombre||'—'}</td>
+      <td><span style="font-size:.75rem;font-weight:700">${catLabel}</span></td>
+      <td>${stock!==null?`<span class="${sc}">${stock}</span>`:'<span class="td-nomatch">—</span>'}</td>
+      <td class="${precio!==null?'td-price':'td-nomatch'}">${precio!==null?fmtPrice(precio):'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function clearImport(){
+  pendingData=[];pendingColMap={};
+  document.getElementById('import-preview').style.display='none';
+  document.getElementById('import-summary').style.display='none';
+  document.getElementById('import-status').className='import-status';
+  const dz=document.getElementById('drop-zone');
+  dz.classList.remove('has-file','drag-over');
+  document.getElementById('dz-ico').textContent='📂';
+  document.getElementById('dz-title').textContent='Arrastrá tu archivo Excel aquí';
+  document.getElementById('dz-sub').textContent='o hacé clic para buscar · .xlsx, .xls o .csv';
+  document.getElementById('file-input-xl').value='';
+}
+
+async function clearAllPrices(){
+  if(!confirm('¿Eliminar todos los productos e precios importados?'))return;
+  importedPrices={};
+  try{ await fetch(BACKEND_URL + '/productos', {method:'DELETE'}); }catch(e){}
+  document.getElementById('active-prices-box').style.display='none';
+  document.querySelectorAll('.imported-price-display').forEach(el=>{el.style.display='none';el.innerHTML='';});
+  document.querySelectorAll('.prod-card[data-imported="true"]').forEach(e=>e.remove());
+  document.querySelectorAll('[data-cat-btn-import]').forEach(e=>e.remove());
+  showImportStatus('ok','🗑️ Todos los productos importados fueron eliminados.');
+}
+
+function showImportStatus(type,msg){
+  const el=document.getElementById('import-status');
+  el.className='import-status '+type;
+  el.textContent=msg;
+}
+
+function downloadTemplate(){
+  if(typeof XLSX==='undefined'){alert('La librería aún no cargó. Esperá un momento.');return;}
+  const ws=XLSX.utils.aoa_to_sheet([
+    ['CODIGO','NOMBRE','CATEGORIA','STOCK','PRECIO'],
+    ['CAB-UNI-250',       'Cable Unipolar 1×2.5mm c/100m',      'cables',    50, 8500],
+    ['CAB-TALL-2-250',    'Cable Taller 2 cond. 2×2.5mm',       'cables',    30, 14200],
+    ['CAB-TALL-3-250',    'Cable Taller 3 cond. 3×2.5mm',       'cables',    20, 19800],
+    ['CAB-TALL-4-250',    'Cable Taller 4/5 cond. 4×2.5mm',     'cables',    15, 28400],
+    ['CAB-SUB-250',       'Cable Subterráneo 2×2.5mm',          'cables',    25, 22100],
+    ['CAJ-RECT-CH20',     'Caja Rect. y Octogonal Chapa 20',    'cajas',    200, 2636.70],
+    ['CAJ-MIGNON-CH20',   'Caja Mignon Chapa 20',               'cajas',    180, 2633.70],
+    ['CAJ-RECT-PROF-CH20','Caja Rect. Profunda Chapa 20',       'cajas',    120, 6247.30],
+    ['CAJ-1010-CH20',     'Caja 10×10 Chapa 20',                'cajas',    100, 6553.50],
+    ['CAJ-OCT-GRANDE-CH20','Caja Octogonal Grande Chapa 20',    'cajas',    150, 6002.30],
+    ['CAJ-EST-IP65-9090', 'Caja Estanca IP65 90×90×55mm',       'estancas',  40, 0],
+    ['BAS-3M',            'Bastidor 3 módulos Jeluz Verona',    'jeluz',     45, 0],
+    ['TAPA-BLANC-3M',     'Tapa Blanca 3 módulos Jeluz Verona', 'jeluz',     40, 0],
+    ['MOD-TOMA-10A',      'Módulo Toma 10A Jeluz Verona',       'modulos',  120, 0],
+    ['MOD-TOMA-20A',      'Módulo Toma 20A Jeluz Verona',       'modulos',   80, 0],
+    ['MOD-PUNTO-10A',     'Módulo Punto (Llave) Jeluz Verona',  'modulos',   90, 0],
+    ['MOD-TIMBRE-10A',    'Módulo Punto Timbre Jeluz Verona',   'modulos',   60, 0],
+    ['MOD-CIEGO',         'Módulo Ciego Jeluz Verona',          'modulos',   50, 0],
+    ['PROD-NUEVO-001',    'Producto extra de ejemplo',          'cables',    10, 5000],
+  ]);
+  ws['!cols']=[{wch:22},{wch:38},{wch:12},{wch:8},{wch:10}];
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Precios');
+  const wbout=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+  const blob=new Blob([wbout],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='Plantilla_Precios_Alvez.xlsx';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1000);
+}
+
+// ── SISTEMA DE AUTENTICACIÓN ──
+// Credenciales de administrador (hasheadas — no modificar)
+const ADMIN_EMAIL_HASH = '7684bf0b'; // hash de josemariaalvez@yahoo.com.ar
+const ADMIN_PASS_HASH  = 'd63d5c1c'; // hash de C0l0p3l4
+
+function authHash(str){
+  let h=0;
+  for(let i=0;i<str.length;i++){h=Math.imul(31,h)+str.charCodeAt(i)|0;}
+  return(h>>>0).toString(16);
+}
+function isAdminCredentials(email,pass){
+  return authHash(email.trim().toLowerCase())===ADMIN_EMAIL_HASH &&
+         authHash(pass)===ADMIN_PASS_HASH;
+}
+function getUsers(){try{return JSON.parse(localStorage.getItem('ae_users')||'[]');}catch{return[];}}
+function saveUsers(u){localStorage.setItem('ae_users',JSON.stringify(u));}
+function getSession(){try{return JSON.parse(sessionStorage.getItem('ae_session')||'null');}catch{return null;}}
+function saveSession(s){sessionStorage.setItem('ae_session',JSON.stringify(s));}
+function clearSession(){sessionStorage.removeItem('ae_session');}
+function isAdmin(){const s=getSession();return s&&s.role==='admin';}
+
+// Muestra u oculta el botón importar según rol
+function updateAdminUI(){
+  const navImportar=document.getElementById('nav-importar');
+  if(navImportar) navImportar.style.display = isAdmin() ? '' : 'none';
+  // También actualiza el badge de rol en el sidebar
+  const roleEl=document.getElementById('auth-user-role-label');
+  if(roleEl) roleEl.textContent = isAdmin() ? '👑 Administrador' : 'Sesión activa';
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const session=getSession();
+  if(session){renderLoggedIn(session);}else{renderGuest();}
+  updateAdminUI();
+  ['login-email','login-pass'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')authLogin();});
+  });
+  ['reg-name','reg-email','reg-pass','reg-pass2'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')authRegister();});
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAuthModal();});
+
+  // Restaurar productos importados desde storage compartido (visible para todos los usuarios)
+  loadSharedPrices();
+});
+
+function showAuthModal(tab){
+  tab=tab||'login';
+  switchAuthTab(tab);
+  clearAuthMessages();
+  document.getElementById('auth-overlay').classList.add('show');
+  setTimeout(()=>{
+    const f=tab==='login'?document.getElementById('login-email'):document.getElementById('reg-name');
+    if(f)f.focus();
+  },200);
+}
+function closeAuthModal(){document.getElementById('auth-overlay').classList.remove('show');}
+function authOverlayClick(e){if(e.target===document.getElementById('auth-overlay'))closeAuthModal();}
+function switchAuthTab(tab){
+  document.getElementById('tab-login').classList.toggle('active',tab==='login');
+  document.getElementById('tab-register').classList.toggle('active',tab==='register');
+  document.getElementById('form-login').style.display=tab==='login'?'':'none';
+  document.getElementById('form-register').style.display=tab==='register'?'':'none';
+  clearAuthMessages();
+}
+function showAuthError(msg){
+  const el=document.getElementById('auth-error');
+  el.textContent=msg;el.classList.add('show');
+  document.getElementById('auth-success').classList.remove('show');
+}
+function showAuthSuccess(msg){
+  const el=document.getElementById('auth-success');
+  el.textContent=msg;el.classList.add('show');
+  document.getElementById('auth-error').classList.remove('show');
+}
+function clearAuthMessages(){
+  document.getElementById('auth-error').classList.remove('show');
+  document.getElementById('auth-success').classList.remove('show');
+}
+
+function authLogin(){
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pass').value;
+  if(!email||!pass){showAuthError('Completá todos los campos.');return;}
+
+  // Verificar si es admin
+  if(isAdminCredentials(email,pass)){
+    const session={name:'José María Alvez',email:email,role:'admin'};
+    saveSession(session);
+    showAuthSuccess('✅ ¡Bienvenido, Administrador!');
+    setTimeout(()=>{closeAuthModal();renderLoggedIn(session);updateAdminUI();},900);
+    return;
+  }
+
+  // Usuario normal
+  const users=getUsers();
+  const user=users.find(u=>u.email===email);
+  if(!user){showAuthError('❌ No existe una cuenta con ese email. ¿Ya te registraste?');return;}
+  if(user.passHash!==authHash(pass)){showAuthError('❌ Contraseña incorrecta.');return;}
+  const session={name:user.name,email:user.email,role:'user'};
+  saveSession(session);
+  showAuthSuccess('✅ ¡Bienvenido, '+user.name+'!');
+  setTimeout(()=>{closeAuthModal();renderLoggedIn(session);updateAdminUI();},900);
+}
+
+function authRegister(){
+  const name=document.getElementById('reg-name').value.trim();
+  const email=document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass=document.getElementById('reg-pass').value;
+  const pass2=document.getElementById('reg-pass2').value;
+  if(!name||!email||!pass||!pass2){showAuthError('Completá todos los campos.');return;}
+  if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){showAuthError('Ingresá un email válido.');return;}
+  if(pass.length<6){showAuthError('La contraseña debe tener al menos 6 caracteres.');return;}
+  if(pass!==pass2){showAuthError('Las contraseñas no coinciden.');return;}
+  // Bloquear registro con el email de admin
+  if(authHash(email)===ADMIN_EMAIL_HASH){showAuthError('❌ Ese email no está disponible para registro.');return;}
+  const users=getUsers();
+  if(users.find(u=>u.email===email)){showAuthError('❌ Ya existe una cuenta con ese email. Iniciá sesión.');return;}
+  users.push({name,email,passHash:authHash(pass),role:'user',createdAt:new Date().toISOString()});
+  saveUsers(users);
+  const session={name,email,role:'user'};
+  saveSession(session);
+  showAuthSuccess('✅ ¡Cuenta creada! Bienvenido, '+name+'.');
+  setTimeout(()=>{closeAuthModal();renderLoggedIn(session);updateAdminUI();},1000);
+}
+
+function authLogout(){
+  if(!confirm('¿Cerrar sesión?'))return;
+  clearSession();
+  renderGuest();
+  updateAdminUI();
+  // Si estaba en la página de importar, volver al inicio
+  if(document.getElementById('page-importar')&&document.getElementById('page-importar').classList.contains('active')){
+    goPage('inicio');
+  }
+}
+
+function renderLoggedIn(session){
+  document.getElementById('auth-sidebar-logged').style.display='';
+  document.getElementById('auth-sidebar-guest').style.display='none';
+  document.getElementById('auth-sidebar-name').textContent=session.name;
+  document.getElementById('auth-avatar-letter').textContent=session.name.charAt(0).toUpperCase();
+  const roleEl=document.getElementById('auth-user-role-label');
+  if(roleEl) roleEl.textContent = session.role==='admin' ? '👑 Administrador' : 'Sesión activa';
+}
+function renderGuest(){
+  document.getElementById('auth-sidebar-logged').style.display='none';
+  document.getElementById('auth-sidebar-guest').style.display='';
+}
+</script>
+
+<!-- ── AUTH MODAL ── -->
+<div class="auth-overlay" id="auth-overlay" onclick="authOverlayClick(event)">
+  <div class="auth-modal" id="auth-modal">
+    <div class="auth-modal-header">
+      <div class="auth-modal-logo"><div class="tri"></div>Alvez Electricidad</div>
+      <div class="auth-modal-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Iniciar sesión</button>
+        <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Registrarse</button>
+      </div>
+    </div>
+    <div class="auth-modal-body">
+      <div class="auth-error" id="auth-error"></div>
+      <div class="auth-success" id="auth-success"></div>
+
+      <!-- LOGIN FORM -->
+      <div id="form-login">
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="tu@email.com" autocomplete="email"/>
+        </div>
+        <div class="auth-field">
+          <label>Contraseña</label>
+          <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+        <button class="btn-auth-submit" onclick="authLogin()">Entrar →</button>
+        <p class="auth-hint">¿No tenés cuenta? <a onclick="switchAuthTab('register')">Registrate acá</a></p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="form-register" style="display:none">
+        <div class="auth-field">
+          <label>Nombre completo</label>
+          <input type="text" id="reg-name" placeholder="Juan Pérez" autocomplete="name"/>
+        </div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="tu@email.com" autocomplete="email"/>
+        </div>
+        <div class="auth-field">
+          <label>Contraseña</label>
+          <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+        </div>
+        <div class="auth-field">
+          <label>Confirmar contraseña</label>
+          <input type="password" id="reg-pass2" placeholder="Repetí la contraseña" autocomplete="new-password"/>
+        </div>
+        <button class="btn-auth-submit" onclick="authRegister()">Crear cuenta →</button>
+        <p class="auth-hint">¿Ya tenés cuenta? <a onclick="switchAuthTab('login')">Iniciá sesión</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
